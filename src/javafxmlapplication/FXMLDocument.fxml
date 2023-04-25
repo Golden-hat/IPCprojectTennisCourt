@@ -10,11 +10,5 @@
         <Label fx:id="labelMessage" lineSpacing="4.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="buttonClick1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction1" prefWidth="80.0" text="Click" />
       <Label fx:id="labelMessage1" lineSpacing="4.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="buttonClick2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefWidth="80.0" text="Click" />
-      <Button fx:id="buttonClick3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefWidth="80.0" text="Click" />
-      <Button fx:id="buttonClick4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefWidth="80.0" text="Click" />
-      <Button fx:id="buttonClick5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefWidth="80.0" text="Click" />
-      <Button fx:id="buttonClick6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefWidth="80.0" text="Click" />
-      <Button fx:id="buttonClick7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefWidth="80.0" text="Click" />
    </children>
 </VBox>
