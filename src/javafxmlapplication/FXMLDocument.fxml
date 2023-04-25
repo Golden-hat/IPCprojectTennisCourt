@@ -29,7 +29,7 @@
          </rowConstraints>
          <children>
             <TextField fx:id="userName" onAction="#loginClicked" prefHeight="0.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Super Tennis!" textAlignment="CENTER" wrappingWidth="746.203125" GridPane.columnSpan="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Super Tennis Application!" textAlignment="CENTER" wrappingWidth="746.203125" GridPane.columnSpan="2">
                <font>
                   <Font size="49.0" />
                </font>
