@@ -28,6 +28,18 @@ public class FXMLDocumentController implements Initializable {
     private Button buttonClick1;
     @FXML
     private Label labelMessage1;
+    @FXML
+    private Button buttonClick2;
+    @FXML
+    private Button buttonClick3;
+    @FXML
+    private Button buttonClick4;
+    @FXML
+    private Button buttonClick5;
+    @FXML
+    private Button buttonClick6;
+    @FXML
+    private Button buttonClick7;
     
     //=========================================================
     // event handler, fired when button is clicked or 
