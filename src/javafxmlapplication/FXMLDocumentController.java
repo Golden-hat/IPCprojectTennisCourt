@@ -24,6 +24,10 @@ public class FXMLDocumentController implements Initializable {
     private Button buttonClick;
     @FXML
     private Label labelMessage;
+    @FXML
+    private Button buttonClick1;
+    @FXML
+    private Label labelMessage1;
     
     //=========================================================
     // event handler, fired when button is clicked or 
@@ -31,6 +35,14 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         labelMessage.setText("Hello, this is your first JavaFX project - IPC");
+    }
+    
+    //=========================================================
+    // event handler, fired when button is clicked or 
+    //                      when the button has the focus and enter is pressed
+    @FXML
+    private void handleButtonAction1(ActionEvent event) {
+        labelMessage1.setText("Hello, this is your first JavaFX project XD - IPC");
     }
     
     //=========================================================
