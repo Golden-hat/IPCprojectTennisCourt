@@ -26,6 +26,8 @@ public class FXMLDocumentController implements Initializable {
     private TextField userName;
     @FXML
     private Text userMessage;
+    @FXML
+    private TextField userName1;
     
     //=========================================================
     // event handler, fired when button is clicked or 
