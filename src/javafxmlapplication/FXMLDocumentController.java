@@ -5,24 +5,31 @@
  */
 package javafxmlapplication;
 
+import com.sun.javafx.logging.PlatformLogger.Level;
+import java.io.IOException;
+import java.lang.System.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  *
  * @author jsoler
  */
 public class FXMLDocumentController implements Initializable {
-    private Label labelMessage;
-    private Label labelMessage1;
+    
     @FXML
     private TextField UsernameField;
     @FXML
@@ -31,20 +38,10 @@ public class FXMLDocumentController implements Initializable {
     private Button LoginButton;
     @FXML
     private Button SignupButton;
-    
-    //=========================================================
-    // event handler, fired when button is clicked or 
-    //                      when the button has the focus and enter is pressed
-    private void handleButtonAction(ActionEvent event) {
-        labelMessage.setText("Hello, this is your first JavaFX project - IPC");
-    }
-    
-    //=========================================================
-    // event handler, fired when button is clicked or 
-    //                      when the button has the focus and enter is pressed
-    private void handleButtonAction1(ActionEvent event) {
-        labelMessage1.setText("Hello, this is your first JavaFX project XD - IPC");
-    }
+    @FXML
+    private Text errorUsername;
+    @FXML
+    private Text errorPassword;
     
     //=========================================================
     // you must initialize here all related with the object 
@@ -58,7 +55,20 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void OnClickedSignup(ActionEvent event) {
+    private void OnClickedSignup() {
+            SignupButton.setOnMouseClicked((MouseEvent event) -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("SignupScreen.fxml"));
+                Scene signup = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.setResizable(false);
+                stage.setTitle("LoginScreen");
+                stage.setScene(signup);
+                stage.show();
+            }catch (IOException e) {
+            }
+        });
     }
 
     
