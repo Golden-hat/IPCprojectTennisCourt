@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -23,11 +24,13 @@ public class FXMLDocumentController implements Initializable {
     private Label labelMessage;
     private Label labelMessage1;
     @FXML
-    private TextField userName;
+    private TextField UsernameField;
     @FXML
-    private Text userMessage;
+    private PasswordField PasswordField;
     @FXML
-    private TextField userName1;
+    private Button LoginButton;
+    @FXML
+    private Button SignupButton;
     
     //=========================================================
     // event handler, fired when button is clicked or 
@@ -51,7 +54,12 @@ public class FXMLDocumentController implements Initializable {
     }    
 
     @FXML
-    private void loginClicked(ActionEvent event) {
+    private void OnClickedLogin(ActionEvent event) {
     }
+
+    @FXML
+    private void OnClickedSignup(ActionEvent event) {
+    }
+
     
 }
