@@ -95,7 +95,12 @@ public class SignUpScreenController implements Initializable {
            
            Image icon = userIcon.getImage();
            
-           //if(existsLogin(userField.getText()))
+           try{
+                Club c = Club.getInstance();
+                if(c.existsLogin(userField.getText())||userField.getText().equals("")){errorUsername.setText("Already in use, or is not valid.");}
+                else{errorUsername.setText("");}
+            }catch(IOException | NumberFormatException | ClubDAOException e){}
+           
            if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
            && !nameField.getText().equals("")&& !familyNameField.getText().equals("")&& errorCSV.getText().equals(""))
            {
