@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class JavaFXMLApplication extends Application {
     
-    private static Stage stg;
+    public static Stage stg;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -32,7 +32,7 @@ public class JavaFXMLApplication extends Application {
         //     - se muestra el stage de manera no modal mediante el metodo show()
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("start PROJECT - IPC:");
+        stage.setTitle("Login");
         stage.show();
     }
     

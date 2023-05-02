@@ -4,6 +4,7 @@
  */
 package javafxmlapplication;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.*;
 
 /**
@@ -54,7 +57,11 @@ public class SignUpScreenController implements Initializable {
     @FXML
     private Text errorCSV;
     @FXML
-    private ImageView userIcon;
+    private Button userIcon;
+    @FXML
+    private Text imagePath;
+    
+    public static Image icon = null;
 
     /**
      * Initializes the controller class.
@@ -93,8 +100,6 @@ public class SignUpScreenController implements Initializable {
            if(!checkNumber(csvField.getText())|| csvField.getText().length() != 3){errorCSV.setText("Non-numeric character introduced.");}
            else{errorCSV.setText("");}
            
-           Image icon = userIcon.getImage();
-           
            try{
                 Club c = Club.getInstance();
                 if(c.existsLogin(userField.getText())|| userField.getText().equals("")){errorUsername.setText("Already in use, or is not valid.");}
@@ -104,15 +109,31 @@ public class SignUpScreenController implements Initializable {
            if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
            && !nameField.getText().equals("")&& !familyNameField.getText().equals("")&& errorCSV.getText().equals("") && errorUsername.getText().equals(""))
            {
-                signUpSuccessful.setText("You signed up successfully!");
                 try{
                     Club c = Club.getInstance();
                     Member m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
                     userField.getText(),passwordField.getText(), cardField.getText(), 
                     Integer.parseInt(csvField.getText()), icon);
                 }catch(IOException | NumberFormatException | ClubDAOException e){}
+                FXMLDocumentController.signup.close();
            }
            else{signUpSuccessful.setText("Solve errors before Signing Up.");}
+        });
+    }
+
+    @FXML
+    private void onUserIconClicked(){
+        userIcon.setOnMouseClicked((MouseEvent event) ->{
+            FileChooser fc = new FileChooser();
+            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG files","*.png"),
+            new ExtensionFilter("JPEG files","*.jpeg"),
+            new ExtensionFilter("All images","*.jpeg", "*.png"));
+            File selectedFile = fc.showOpenDialog(FXMLDocumentController.signup);
+            if(selectedFile != null){
+                Image image = new Image(selectedFile.getPath());
+                icon = image;
+                imagePath.setText("File uploaded successfully!");
+            }
         });
     }
     
