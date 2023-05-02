@@ -49,8 +49,8 @@
                   <Image url="@../img/ball.png" />
                </image>
             </ImageView>
-            <Text fx:id="errorUsername" fill="RED" layoutX="137.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="233.13671875" />
-            <Text fx:id="errorPassword" fill="RED" layoutX="136.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="231.13671875" />
+            <Text fx:id="errorUsername" fill="RED" layoutX="137.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="233.13671875" />
+            <Text fx:id="errorPassword" fill="RED" layoutX="139.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="231.13671875" />
          </children>
       </AnchorPane>
    </center>
