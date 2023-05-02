@@ -23,6 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Club;
+import model.ClubDAOException;
 
 /**
  *
@@ -51,7 +53,25 @@ public class FXMLDocumentController implements Initializable {
     }    
 
     @FXML
-    private void OnClickedLogin(ActionEvent event) {
+    private void OnClickedLogin() {
+        LoginButton.setOnMouseClicked((MouseEvent event) -> {
+        try{
+            Club c = Club.getInstance();
+            if(c.existsLogin(UsernameField.getText())){
+                errorUsername.setText("");
+                String password = "";
+                try{
+                    password = c.getMemberByCredentials(UsernameField.getText(), PasswordField.getText()).getPassword();
+                }catch(Exception e){errorPassword.setText("Password is wrong");}
+                if(password.equals(PasswordField.getText())){
+                    errorPassword.setText("");
+                    JavaFXMLApplication main = new JavaFXMLApplication();
+                    main.changeScene("SignupScreen.fxml");
+                }
+            }
+            else{errorUsername.setText("This user is not registered in our system.");}
+        }catch(IOException | NumberFormatException | ClubDAOException e){}
+        });
     }
 
     @FXML
@@ -63,7 +83,7 @@ public class FXMLDocumentController implements Initializable {
                 Scene signup = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
                 stage.setResizable(false);
-                stage.setTitle("LoginScreen");
+                stage.setTitle("Sign Up");
                 stage.setScene(signup);
                 stage.show();
             }catch (IOException e) {

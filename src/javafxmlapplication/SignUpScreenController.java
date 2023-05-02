@@ -81,7 +81,7 @@ public class SignUpScreenController implements Initializable {
     @FXML
     private void onClickDoneLogin() {
        doneButton.setOnMouseClicked((MouseEvent event) -> {
-           if(!checkNumber(phoneField.getText())||phoneField.getText().equals("")){errorPhone.setText("Non-numeric character introduced.");}
+           if(!checkNumber(phoneField.getText())|| phoneField.getText().equals("")){errorPhone.setText("Non-numeric character introduced.");}
            else{errorPhone.setText("");}
            
            if(passwordField.getText().length() < 6){errorPassword.setText("Must be at least 6 char. long.");}
@@ -90,19 +90,19 @@ public class SignUpScreenController implements Initializable {
            if(!checkNumber(cardField.getText()) || cardField.getText().length() != 16){errorCardNumber.setText("Incorrect input.");}
            else{errorCardNumber.setText("");}
            
-           if(!checkNumber(csvField.getText())||csvField.getText().length() != 3){errorCSV.setText("Non-numeric character introduced.");}
+           if(!checkNumber(csvField.getText())|| csvField.getText().length() != 3){errorCSV.setText("Non-numeric character introduced.");}
            else{errorCSV.setText("");}
            
            Image icon = userIcon.getImage();
            
            try{
                 Club c = Club.getInstance();
-                if(c.existsLogin(userField.getText())||userField.getText().equals("")){errorUsername.setText("Already in use, or is not valid.");}
+                if(c.existsLogin(userField.getText())|| userField.getText().equals("")){errorUsername.setText("Already in use, or is not valid.");}
                 else{errorUsername.setText("");}
             }catch(IOException | NumberFormatException | ClubDAOException e){}
            
            if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
-           && !nameField.getText().equals("")&& !familyNameField.getText().equals("")&& errorCSV.getText().equals(""))
+           && !nameField.getText().equals("")&& !familyNameField.getText().equals("")&& errorCSV.getText().equals("") && errorUsername.getText().equals(""))
            {
                 signUpSuccessful.setText("You signed up successfully!");
                 try{
