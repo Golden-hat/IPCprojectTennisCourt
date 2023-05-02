@@ -6,6 +6,7 @@
 package javafxmlapplication;
 
 import com.sun.javafx.logging.PlatformLogger.Level;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.net.URL;
@@ -45,6 +46,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Text errorPassword;
     
+    public static Stage signup;
+    
     //=========================================================
     // you must initialize here all related with the object 
     @Override
@@ -59,10 +62,10 @@ public class FXMLDocumentController implements Initializable {
             Club c = Club.getInstance();
             if(c.existsLogin(UsernameField.getText())){
                 errorUsername.setText("");
-                String password = "";
+                String password = null;
                 try{
                     password = c.getMemberByCredentials(UsernameField.getText(), PasswordField.getText()).getPassword();
-                }catch(Exception e){errorPassword.setText("Password is wrong.");}
+                }catch(Exception e){errorPassword.setText("Password is wrong or the field is empty.");}
                 if(password.equals(PasswordField.getText())){
                     errorPassword.setText("");
                     JavaFXMLApplication main = new JavaFXMLApplication();
@@ -80,12 +83,12 @@ public class FXMLDocumentController implements Initializable {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("SignupScreen.fxml"));
-                Scene signup = new Scene(fxmlLoader.load());
-                Stage stage = new Stage();
-                stage.setResizable(false);
-                stage.setTitle("Sign Up");
-                stage.setScene(signup);
-                stage.show();
+                Scene scene = new Scene(fxmlLoader.load());
+                signup = new Stage();
+                signup.setResizable(false);
+                signup.setTitle("Sign Up");
+                signup.setScene(scene);
+                signup.show();
             }catch (IOException e) {
             }
         });
