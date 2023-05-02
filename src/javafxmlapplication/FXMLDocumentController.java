@@ -66,7 +66,7 @@ public class FXMLDocumentController implements Initializable {
                 if(password.equals(PasswordField.getText())){
                     errorPassword.setText("");
                     JavaFXMLApplication main = new JavaFXMLApplication();
-                    main.changeScene("SignupScreen.fxml");
+                    main.changeScene("mainMenu.fxml",1000, 700);
                 }
             }
             else{errorUsername.setText("This user is not registered in our system.");}

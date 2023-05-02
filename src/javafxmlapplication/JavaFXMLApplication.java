@@ -36,9 +36,12 @@ public class JavaFXMLApplication extends Application {
         stage.show();
     }
     
-    public void changeScene(String fxml) throws IOException{
+    public void changeScene(String fxml, int width, int height) throws IOException{
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(pane);
+        stg.setWidth(width);
+        stg.setHeight(height);
+        stg.centerOnScreen();
     }
     
     /**
