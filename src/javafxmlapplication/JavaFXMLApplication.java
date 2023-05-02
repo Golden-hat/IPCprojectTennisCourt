@@ -5,6 +5,7 @@
  */
 package javafxmlapplication;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,8 +14,11 @@ import javafx.stage.Stage;
 
 public class JavaFXMLApplication extends Application {
     
+    private static Stage stg;
+    
     @Override
     public void start(Stage stage) throws Exception {
+        stg = stage;
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
         FXMLLoader loader= new  FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
@@ -31,7 +35,12 @@ public class JavaFXMLApplication extends Application {
         stage.setTitle("start PROJECT - IPC:");
         stage.show();
     }
-
+    
+    public void changeScene(String fxml) throws IOException{
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        stg.getScene().setRoot(pane);
+    }
+    
     /**
      * @param args the command line arguments
      */
