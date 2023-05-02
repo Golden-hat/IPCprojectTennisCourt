@@ -12,8 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import model.*;
 
 /**
  * FXML Controller class
@@ -46,6 +49,12 @@ public class SignUpScreenController implements Initializable {
     private Text signUpSuccessful;
     @FXML
     private TextField familyNameField;
+    @FXML
+    private TextField csvField;
+    @FXML
+    private Text errorCSV;
+    @FXML
+    private ImageView userIcon;
 
     /**
      * Initializes the controller class.
@@ -74,14 +83,30 @@ public class SignUpScreenController implements Initializable {
        doneButton.setOnMouseClicked((MouseEvent event) -> {
            if(!checkNumber(phoneField.getText())||phoneField.getText().equals("")){errorPhone.setText("Non-numeric character introduced.");}
            else{errorPhone.setText("");}
+           
            if(passwordField.getText().length() < 6){errorPassword.setText("Must be at least 6 char. long.");}
            else{errorPassword.setText("");}
+           
            if(!checkNumber(cardField.getText()) || cardField.getText().length() != 16){errorCardNumber.setText("Incorrect input.");}
            else{errorCardNumber.setText("");}
+           
+           if(!checkNumber(csvField.getText())||csvField.getText().length() != 3){errorCSV.setText("Non-numeric character introduced.");}
+           else{errorCSV.setText("");}
+           
+           Image icon = userIcon.getImage();
+           
            //if(existsLogin(userField.getText()))
            if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
-           && !nameField.getText().equals("")&& !familyNameField.getText().equals(""))
-           {signUpSuccessful.setText("You signed up successfully!");}
+           && !nameField.getText().equals("")&& !familyNameField.getText().equals("")&& errorCSV.getText().equals(""))
+           {
+                signUpSuccessful.setText("You signed up successfully!");
+                try{
+                    Club c = Club.getInstance();
+                    Member m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
+                    userField.getText(),passwordField.getText(), cardField.getText(), 
+                    Integer.parseInt(csvField.getText()), icon);
+                }catch(IOException | NumberFormatException | ClubDAOException e){}
+           }
            else{signUpSuccessful.setText("Solve errors before Signing Up.");}
         });
     }
