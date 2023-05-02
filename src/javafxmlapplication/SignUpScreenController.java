@@ -128,12 +128,17 @@ public class SignUpScreenController implements Initializable {
             fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG files","*.png"),
             new ExtensionFilter("JPEG files","*.jpeg"),
             new ExtensionFilter("All images","*.jpeg", "*.png"));
+            imagePath.setText("Wait while the image is loaded...");
+            String prevmessage = signUpSuccessful.getText();
+            signUpSuccessful.setText("The image is loading... the screen may be unresponsive.");
             File selectedFile = fc.showOpenDialog(FXMLDocumentController.signup);
             if(selectedFile != null){
                 Image image = new Image(selectedFile.getPath());
                 icon = image;
                 imagePath.setText("File uploaded successfully!");
+                signUpSuccessful.setText(prevmessage);
             }
+            else{imagePath.setText("");signUpSuccessful.setText(prevmessage);}
         });
     }
     
