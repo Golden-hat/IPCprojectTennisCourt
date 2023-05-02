@@ -62,7 +62,7 @@ public class FXMLDocumentController implements Initializable {
                 String password = "";
                 try{
                     password = c.getMemberByCredentials(UsernameField.getText(), PasswordField.getText()).getPassword();
-                }catch(Exception e){errorPassword.setText("Password is wrong");}
+                }catch(Exception e){errorPassword.setText("Password is wrong.");}
                 if(password.equals(PasswordField.getText())){
                     errorPassword.setText("");
                     JavaFXMLApplication main = new JavaFXMLApplication();
