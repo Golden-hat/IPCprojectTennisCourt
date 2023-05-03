@@ -85,7 +85,9 @@ public class FXMLDocumentController implements Initializable {
                     */
                 }
             }
-            else{errorUsername.setText("This user is not registered in our system.");}
+            else{errorUsername.setText("This user is not registered in our system.");
+            errorPassword.setText("");
+            PasswordField.setText("");}
         }catch(IOException | NumberFormatException | ClubDAOException e){}
         });
     }
