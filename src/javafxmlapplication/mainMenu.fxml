@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #d6ffe3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.MainMenuController"/>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #d6ffe3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.MainMenuController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="474.0" layoutY="338.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="boton1" layoutX="474.0" layoutY="291.0" mnemonicParsing="false" onAction="#onClickboton1" text="Button" />
+            <Button layoutX="474.0" layoutY="391.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="474.0" layoutY="438.0" mnemonicParsing="false" text="Button" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
