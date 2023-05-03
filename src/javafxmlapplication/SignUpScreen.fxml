@@ -47,6 +47,8 @@
             <TextField fx:id="userField" layoutX="200.0" layoutY="246.0" promptText="i. e, Golden_Hat" />
             <TextField fx:id="passwordField" layoutX="200.0" layoutY="293.0" promptText="i. e, banana" />
             <TextField fx:id="cardField" layoutX="200.0" layoutY="339.0" promptText="i. e, 9999444433332222" />
+            <TextField fx:id="csvField" layoutX="200.0" layoutY="385.0" promptText="i. e, 123" />
+            <Button fx:id="userIcon" layoutX="199.0" layoutY="430.0" mnemonicParsing="false" onAction="#onUserIconClicked" prefHeight="25.0" prefWidth="148.0" text="Upload Icon" />
             <Button fx:id="doneButton" layoutX="36.0" layoutY="479.0" mnemonicParsing="false" onAction="#onClickDoneLogin" prefHeight="57.0" prefWidth="310.0" text="Done!">
                <font>
                   <Font size="19.0" />
@@ -99,7 +101,6 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="csvField" layoutX="200.0" layoutY="385.0" promptText="i. e, 123" />
             <Text layoutX="137.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Icon:" textAlignment="RIGHT">
                <font>
                   <Font size="15.0" />
@@ -110,7 +111,6 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="userIcon" layoutX="199.0" layoutY="430.0" mnemonicParsing="false" onAction="#onUserIconClicked" prefHeight="25.0" prefWidth="148.0" text="Upload Icon" />
             <Text fx:id="imagePath" fill="RED" layoutX="36.0" layoutY="468.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="312.13671875">
                <font>
                   <Font size="10.0" />
