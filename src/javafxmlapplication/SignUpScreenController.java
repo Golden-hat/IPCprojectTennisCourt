@@ -97,7 +97,7 @@ public class SignUpScreenController implements Initializable {
            if(!checkNumber(cardField.getText()) || cardField.getText().length() != 16){errorCardNumber.setText("Incorrect input.");}
            else{errorCardNumber.setText("");}
            
-           if(!checkNumber(csvField.getText())|| csvField.getText().length() != 3){errorCSV.setText("Non-numeric character introduced.");}
+           if(!checkNumber(csvField.getText())|| csvField.getText().length() != 3){errorCSV.setText("Incorrect input.");}
            else{errorCSV.setText("");}
            
            try{
