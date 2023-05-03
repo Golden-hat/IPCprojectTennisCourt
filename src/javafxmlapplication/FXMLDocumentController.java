@@ -47,6 +47,7 @@ public class FXMLDocumentController implements Initializable {
     private Text errorPassword;
     
     public static Stage signup;
+    public static Stage mainScreen;
     
     //=========================================================
     // you must initialize here all related with the object 
@@ -67,9 +68,21 @@ public class FXMLDocumentController implements Initializable {
                     password = c.getMemberByCredentials(UsernameField.getText(), PasswordField.getText()).getPassword();
                 }catch(Exception e){errorPassword.setText("Password is wrong or the field is empty.");}
                 if(password.equals(PasswordField.getText())){
+                    JavaFXMLApplication.stg.close();
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("mainMenu.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    mainScreen = new Stage();
+                    mainScreen.setResizable(false);
+                    mainScreen.setTitle("Main Menu");
+                    mainScreen.setScene(scene);
+                    mainScreen.centerOnScreen();
+                    mainScreen.show();
+                    /*
                     errorPassword.setText("");
                     JavaFXMLApplication main = new JavaFXMLApplication();
                     main.changeScene("mainMenu.fxml",1000, 700);
+                    */
                 }
             }
             else{errorUsername.setText("This user is not registered in our system.");}
