@@ -57,7 +57,7 @@
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></TextField>
-            <Text fx:id="errorPhone" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="164.13671875" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Text fx:id="errorPhone" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="10.0" />
                </font>
