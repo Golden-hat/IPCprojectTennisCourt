@@ -100,7 +100,7 @@ public class FXMLDocumentController implements Initializable {
                 fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("SignupScreen.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 signup = new Stage();
-                signup.setResizable(false);
+                signup.setResizable(true);
                 signup.setTitle("Sign Up");
                 signup.setScene(scene);
                 signup.show();

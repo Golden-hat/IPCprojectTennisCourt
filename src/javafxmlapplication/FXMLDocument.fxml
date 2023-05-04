@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="571.0" style="-fx-background-color: #d6ffe3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.FXMLDocumentController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="579.0" style="-fx-background-color: #d6ffe3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.FXMLDocumentController">
    <center>
-      <GridPane prefHeight="419.0" prefWidth="395.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="384.0" prefWidth="358.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,11 +24,11 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="149.0" minHeight="150.0" prefHeight="142.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="79.0" minHeight="50.0" prefHeight="79.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="150.0" minHeight="50.0" prefHeight="99.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="227.0" minHeight="80.0" prefHeight="160.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="219.0" minHeight="50.0" prefHeight="75.0" valignment="CENTER" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" GridPane.rowIndex="1">
@@ -36,17 +36,17 @@
                   <Font size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="20.0" left="40.0" />
+                  <Insets left="40.0" />
                </GridPane.margin>
             </Text>
             <TextField fx:id="UsernameField" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="20.0" left="60.0" right="40.0" />
+                  <Insets left="60.0" right="40.0" />
                </GridPane.margin>
             </TextField>
-            <Text fx:id="errorUsername" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="254.13671875" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Text fx:id="errorUsername" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="220.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets bottom="70.0" />
+                  <Insets bottom="50.0" />
                </GridPane.margin>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" GridPane.rowIndex="2">
@@ -54,38 +54,38 @@
                   <Font size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="40.0" left="40.0" />
+                  <Insets left="40.0" />
                </GridPane.margin>
             </Text>
             <PasswordField fx:id="PasswordField" prefHeight="25.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="40.0" left="60.0" right="40.0" />
+                  <Insets left="60.0" right="40.0" />
                </GridPane.margin>
             </PasswordField>
-            <Text fx:id="errorPassword" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="254.13671875" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+            <Text fx:id="errorPassword" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="219.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets bottom="90.0" />
+                  <Insets bottom="50.0" />
                </GridPane.margin>
             </Text>
             <Button fx:id="LoginButton" mnemonicParsing="false" onAction="#OnClickedLogin" prefHeight="25.0" prefWidth="175.0" text="Log In!" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="70.0" right="40.0" />
+                  <Insets bottom="60.0" left="40.0" right="40.0" />
                </GridPane.margin>
             </Button>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account yet? Sign up!" textAlignment="CENTER" wrappingWidth="138.88671875" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account yet? Sign up!" textAlignment="CENTER" wrappingWidth="138.88671875" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font size="13.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="100.0" left="45.0" />
+                  <Insets bottom="80.0" right="400.0" />
                </GridPane.margin>
             </Text>
             <Button fx:id="SignupButton" mnemonicParsing="false" onAction="#OnClickedSignup" prefHeight="25.0" prefWidth="158.0" text="Sign up!" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="100.0" right="40.0" />
+                  <Insets bottom="80.0" left="40.0" right="40.0" />
                </GridPane.margin>
             </Button>
-            <ImageView fitHeight="94.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+            <ImageView fitHeight="83.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <image>
                   <Image url="@../img/ball.png" />
                </image>
@@ -97,9 +97,9 @@
       </GridPane>
    </center>
    <left>
-      <VBox prefHeight="373.0" prefWidth="171.0" style="-fx-background-color: #00c370;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="258.0" prefWidth="116.0" style="-fx-background-color: #00c370;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="373.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="395.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/banner.png" />
                </image>
