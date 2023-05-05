@@ -14,33 +14,33 @@ import javafx.stage.Stage;
 
 public class JavaFXMLApplication extends Application {
     
-    public static Stage stg;
+    public static Stage login;
+    public static Stage signup;
+    public static Stage mainScreen;
     
     @Override
     public void start(Stage stage) throws Exception {
-        stg = stage;
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
-        FXMLLoader loader= new  FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-        Parent root = loader.load();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("FXMLDocument.fxml"));
         //======================================================================
         // 2- creación de la escena con el nodo raiz del grafo de escena
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(fxmlLoader.load());
         //======================================================================
         // 3- asiganación de la escena al Stage que recibe el metodo 
         //     - configuracion del stage
         //     - se muestra el stage de manera no modal mediante el metodo show()
-        stage.setScene(scene);
-        stage.setResizable(true);
-        stage.setTitle("Login");
-        stage.show();
+        login = new Stage();
+        login.setResizable(true);
+        login.setTitle("Login");
+        login.setScene(scene);
+        login.show();
     }
     
-    public void changeScene(String fxml, int width, int height) throws IOException{
+    public void changeScene(String fxml, Stage stg) throws IOException{
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(pane);
-        stg.setWidth(width);
-        stg.setHeight(height);
         stg.centerOnScreen();
     }
     
