@@ -20,7 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import static javafxmlapplication.FXMLDocumentController.signup;
+import static javafxmlapplication.JavaFXMLApplication.*;
 
 /**
  * FXML Controller class
@@ -28,8 +28,6 @@ import static javafxmlapplication.FXMLDocumentController.signup;
  * @author yassi
  */
 public class MainMenuController implements Initializable {
-    
-    public static Stage login;
 
     @FXML
     private Button boton1;
@@ -66,11 +64,9 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onSignOutButtonClicked() {
-        
-            signOutButton.setOnMouseClicked((MouseEvent event) -> {
+        signOutButton.setOnMouseClicked((MouseEvent event) -> {
             try {
-                FXMLDocumentController.mainScreen.close();
-                JavaFXMLApplication.stg = login;
+                mainScreen.close();
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("FXMLDocument.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
@@ -85,7 +81,20 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void onCheckInfoButtonClicked(ActionEvent event) {
+    private void onCheckInfoButtonClicked() {
+        checkInfoButton.setOnMouseClicked((MouseEvent event) -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("SignUpScreen.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                signup = new Stage();
+                signup.setResizable(true);
+                signup.setTitle("Login");
+                signup.setScene(scene);
+                signup.show();
+            }catch (IOException e) {
+            }
+        });
     }
 
     @FXML

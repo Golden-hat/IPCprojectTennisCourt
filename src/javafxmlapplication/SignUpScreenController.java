@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import static javafxmlapplication.JavaFXMLApplication.*;
 import model.*;
 
 /**
@@ -115,7 +116,7 @@ public class SignUpScreenController implements Initializable {
                     userField.getText(),passwordField.getText(), cardField.getText(), 
                     Integer.parseInt(csvField.getText()), icon);
                 }catch(IOException | NumberFormatException | ClubDAOException e){}
-                FXMLDocumentController.signup.close();
+                signup.close();
            }
            else{signUpSuccessful.setText("Solve errors before Signing Up.");}
         });
@@ -131,7 +132,7 @@ public class SignUpScreenController implements Initializable {
             imagePath.setText("Wait while the image is loaded...");
             String prevmessage = signUpSuccessful.getText();
             signUpSuccessful.setText("The image is loading... the screen may be unresponsive.");
-            File selectedFile = fc.showOpenDialog(FXMLDocumentController.signup);
+            File selectedFile = fc.showOpenDialog(signup);
             if(selectedFile != null){
                 Image image = new Image(selectedFile.getPath());
                 icon = image;

@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import static javafxmlapplication.JavaFXMLApplication.*;
 import model.Club;
 import model.ClubDAOException;
 
@@ -46,8 +47,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Text errorPassword;
     
-    public static Stage signup;
-    public static Stage mainScreen;
+
     
     //=========================================================
     // you must initialize here all related with the object 
@@ -68,11 +68,12 @@ public class FXMLDocumentController implements Initializable {
                     password = c.getMemberByCredentials(UsernameField.getText(), PasswordField.getText()).getPassword();
                 }catch(Exception e){errorPassword.setText("Password is wrong or the field is empty.");}
                 if(password.equals(PasswordField.getText())){
+                    login.close();
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("mainMenu.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     mainScreen = new Stage();
-                    mainScreen.setResizable(false);
+                    mainScreen.setResizable(true);
                     mainScreen.setTitle("Main Menu");
                     mainScreen.setScene(scene);
                     mainScreen.centerOnScreen();
