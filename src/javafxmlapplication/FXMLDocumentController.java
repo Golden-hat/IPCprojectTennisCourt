@@ -68,7 +68,6 @@ public class FXMLDocumentController implements Initializable {
                     password = c.getMemberByCredentials(UsernameField.getText(), PasswordField.getText()).getPassword();
                 }catch(Exception e){errorPassword.setText("Password is wrong or the field is empty.");}
                 if(password.equals(PasswordField.getText())){
-                    JavaFXMLApplication.stg.close();
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("mainMenu.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
