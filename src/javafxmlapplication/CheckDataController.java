@@ -85,12 +85,20 @@ public class CheckDataController implements Initializable {
     private Button resetButton;
     @FXML
     private Button cardInfoResetButton;
+    
+    public boolean resetCard;
+    public boolean resetIcon;
+    public boolean setIcon;
+    public Image defaultIcon = new Image("img/Avatar_icon_green.svg.png");
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        resetIcon = false;
+        resetCard = false;
+        setIcon = false;
         nameMember.setText(memberLoggedIn.getName());
         surnameMember.setText(memberLoggedIn.getSurname());
         phoneMember.setText(memberLoggedIn.getTelephone());
@@ -106,63 +114,75 @@ public class CheckDataController implements Initializable {
 
     @FXML
     private void onUserIconClicked() {
-        userIcon.setOnMouseClicked((MouseEvent event) ->{
-            FileChooser fc = new FileChooser();
-            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG files","*.png"),
-            new FileChooser.ExtensionFilter("JPEG files","*.jpeg"),
-            new FileChooser.ExtensionFilter("All images","*.jpeg", "*.png"));
-            imagePath.setText("Wait while the image is loaded...");
-            String prevmessage = signUpSuccessful.getText();
-            signUpSuccessful.setText("The image is loading... the screen may be unresponsive.");
-            File selectedFile = fc.showOpenDialog(signup);
-            if(selectedFile != null){
-                Image image = new Image(selectedFile.getPath());
-                icon = image;
-                imagePath.setText("File uploaded successfully!");
-                signUpSuccessful.setText(prevmessage);
-            }
-            else{imagePath.setText("");signUpSuccessful.setText(prevmessage);}
-        });
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG files","*.png"),
+        new FileChooser.ExtensionFilter("JPEG files","*.jpeg"),
+        new FileChooser.ExtensionFilter("All images","*.jpeg", "*.png"));
+        imagePath.setText("Wait while the image is loaded...");
+        String prevmessage = signUpSuccessful.getText();
+        signUpSuccessful.setText("The image is loading... the screen may be unresponsive.");
+        File selectedFile = fc.showOpenDialog(signup);
+        if(selectedFile != null){
+            Image image = new Image(selectedFile.getPath());
+            icon = image;
+            imagePath.setText("File uploaded successfully!");
+            signUpSuccessful.setText(prevmessage);
+            setIcon = true;
+        }
+        else{imagePath.setText("");signUpSuccessful.setText(prevmessage);}
     }
 
     @FXML
     private void onClickDoneLogin() {
-        doneButton.setOnMouseClicked((MouseEvent event) -> {
-           if(!phoneField.getText().equals("")&&!checkNumber(phoneField.getText())){errorPhone.setText("Non-numeric character introduced.");}
-           else{errorPhone.setText("");}
-           
-           if(!passwordField.getText().equals("")&&passwordField.getText().length() < 6){errorPassword.setText("Must be at least 6 char. long.");}
-           else{errorPassword.setText("");}
-           
-           if(!cardField.getText().equals("")&&(!checkNumber(cardField.getText()) || cardField.getText().length() != 16)){errorCardNumber.setText("Incorrect input.");}
-           else{errorCardNumber.setText("");}
-           
-           if(!csvField.getText().equals("")&&(!checkNumber(csvField.getText())|| csvField.getText().length() != 3)){errorCSV.setText("Incorrect input.");}
-           else{errorCSV.setText("");}
-           
-           if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
-           && errorCSV.getText().equals(""))
-           {
-                if(!nameField.getText().equals("")){memberLoggedIn.setName(nameField.getText());}
-                if(!familyNameField.getText().equals("")){memberLoggedIn.setSurname(familyNameField.getText());}
-                if(!passwordField.getText().equals("")){memberLoggedIn.setPassword(passwordField.getText());}
-                if(!cardField.getText().equals("")){memberLoggedIn.setCreditCard(cardField.getText());}
-                if(!csvField.getText().equals("")){memberLoggedIn.setSvc(Integer.parseInt(csvField.getText()));}
-                if(!phoneField.getText().equals("")){memberLoggedIn.setTelephone(phoneField.getText());}
-                if(icon != null){
-                    memberLoggedIn.setImage(icon);
-                }
-                initialize(null, null);
-                signUpSuccessful.setText("Changes applied successfully.");       
-                cardField.setPromptText("");
-                csvField.setPromptText("");
-                JavaFXMLApplication c = new JavaFXMLApplication();
-                try{
-                c.changeScene("mainMenu.fxml", mainScreen);
-                }catch(IOException e){}
-           }
-           else{signUpSuccessful.setText("Solve errors before changing data or resetting card");}
-        });
+        if(!phoneField.getText().equals("")&&!checkNumber(phoneField.getText())){errorPhone.setText("Non-numeric character introduced.");}
+        else{errorPhone.setText("");}
+
+        if(!passwordField.getText().equals("")&&passwordField.getText().length() < 6){errorPassword.setText("Must be at least 6 char. long.");}
+        else{errorPassword.setText("");}
+
+        if(!cardField.getText().equals("")&&(!checkNumber(cardField.getText()) || cardField.getText().length() != 16)){errorCardNumber.setText("Incorrect input.");}
+        else{errorCardNumber.setText("");}
+
+        if(!csvField.getText().equals("")&&(!checkNumber(csvField.getText())|| csvField.getText().length() != 3)){errorCSV.setText("Incorrect input.");}
+        else{errorCSV.setText("");}
+
+        if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
+        && errorCSV.getText().equals(""))
+        {
+            if(!nameField.getText().equals("")){memberLoggedIn.setName(nameField.getText());}
+            if(!familyNameField.getText().equals("")){memberLoggedIn.setSurname(familyNameField.getText());}
+            if(!passwordField.getText().equals("")){memberLoggedIn.setPassword(passwordField.getText());}
+            if(!cardField.getText().equals("")){memberLoggedIn.setCreditCard(cardField.getText());}
+            if(!csvField.getText().equals("")){memberLoggedIn.setSvc(Integer.parseInt(csvField.getText()));}
+            if(!phoneField.getText().equals("")){memberLoggedIn.setTelephone(phoneField.getText());}
+            
+            if(setIcon){
+                memberLoggedIn.setImage(icon);
+                setIcon = false;
+            }
+            
+            if(resetIcon){
+                memberLoggedIn.setImage(defaultIcon);
+                icon = defaultIcon;
+                resetIcon = false;
+            }
+            
+            if(resetCard){        
+                memberLoggedIn.setSvc(-1);
+                memberLoggedIn.setCreditCard("");
+                resetCard = false;
+            }
+            
+            initialize(null, null);
+
+            JavaFXMLApplication c = new JavaFXMLApplication();
+            try{
+            c.changeScene("mainMenu.fxml", mainScreen);
+            }catch(IOException e){}
+            
+            signUpSuccessful.setText("Changes applied successfully.");
+        }
+        else{signUpSuccessful.setText("Solve errors before changing data or resetting card");}
     }
 
     @FXML
@@ -172,20 +192,19 @@ public class CheckDataController implements Initializable {
 
     @FXML
     private void onClickResetButton(ActionEvent event) {
-        icon = new Image("img/Avatar_icon_green.svg.png");
-        memberLoggedIn.setImage(icon);
+        resetIcon = true;
         imagePath.setText("Image reset to default.");
-
+        signUpSuccessful.setText("");
     }
 
     @FXML
     private void onClickCardInfoReset(ActionEvent event) {
-        memberLoggedIn.setSvc(-1);
-        memberLoggedIn.setCreditCard("");
+        resetCard = true;
         cardField.setText("");
         csvField.setText("");
         cardField.setPromptText("Card reset");
         csvField.setPromptText("Card reset");
+        signUpSuccessful.setText("");
     }
     
 }

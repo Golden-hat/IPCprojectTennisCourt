@@ -19,6 +19,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static javafxmlapplication.JavaFXMLApplication.*;
 
@@ -71,38 +72,35 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onSignOutButtonClicked() {
-        signOutButton.setOnMouseClicked((MouseEvent event) -> {
-            try {
-                mainScreen.close();
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("FXMLDocument.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                login = new Stage();
-                login.setResizable(true);
-                login.setTitle("Login");
-                login.setScene(scene);
-                login.show();
-            }catch (IOException e) {
-            }
-        });
+        try {
+            mainScreen.close();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("FXMLDocument.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            login = new Stage();
+            login.setResizable(true);
+            login.setTitle("Login");
+            login.setScene(scene);
+            login.show();
+        }catch (IOException e) {
+        }
     }
 
     @FXML
     private void onCheckInfoButtonClicked() {
-        checkInfoButton.setOnMouseClicked((MouseEvent event) -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("CheckData.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                checkData = new Stage();
-                checkData.setResizable(true);
-                checkData.setTitle("CheckingData");
-                checkData.setScene(scene);
-                checkData.show();
-            }catch (IOException e) {
-            }
-        });
-    }
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("CheckData.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            checkData = new Stage();
+            checkData.setResizable(true);
+            checkData.setTitle("Checking Data");
+            checkData.setScene(scene);
+            checkData.initModality(Modality.APPLICATION_MODAL);
+            checkData.show();
+        }catch (IOException e) {
+        }
+}
 
     @FXML
     private void onDateSelected(ActionEvent event) {
