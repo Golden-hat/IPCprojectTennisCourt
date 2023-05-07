@@ -153,13 +153,15 @@ public class CheckDataController implements Initializable {
                     memberLoggedIn.setImage(icon);
                 }
                 initialize(null, null);
-                signUpSuccessful.setText("Changes applied successfully.");
+                signUpSuccessful.setText("Changes applied successfully.");       
+                cardField.setPromptText("");
+                csvField.setPromptText("");
                 JavaFXMLApplication c = new JavaFXMLApplication();
                 try{
                 c.changeScene("mainMenu.fxml", mainScreen);
                 }catch(IOException e){}
            }
-           else{signUpSuccessful.setText("Solve errors before Signing Up.");}
+           else{signUpSuccessful.setText("Solve errors before changing data or resetting card");}
         });
     }
 
@@ -180,6 +182,8 @@ public class CheckDataController implements Initializable {
     private void onClickCardInfoReset(ActionEvent event) {
         memberLoggedIn.setSvc(-1);
         memberLoggedIn.setCreditCard("");
+        cardField.setText("");
+        csvField.setText("");
         cardField.setPromptText("Card reset");
         csvField.setPromptText("Card reset");
     }
