@@ -23,6 +23,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static javafxmlapplication.JavaFXMLApplication.*;
 import model.Club;
@@ -57,7 +58,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void OnClickedLogin() {
-        LoginButton.setOnMouseClicked((MouseEvent event) -> {
         try{
             Club c = Club.getInstance();
             if(c.existsLogin(UsernameField.getText())){
@@ -88,24 +88,22 @@ public class FXMLDocumentController implements Initializable {
             errorPassword.setText("");
             PasswordField.setText("");}
         }catch(IOException | NumberFormatException | ClubDAOException e){}
-        });
     }
 
     @FXML
     private void OnClickedSignup() {
-            SignupButton.setOnMouseClicked((MouseEvent event) -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("SignupScreen.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                signup = new Stage();
-                signup.setResizable(true);
-                signup.setTitle("Sign Up");
-                signup.setScene(scene);
-                signup.show();
-            }catch (IOException e) {
-            }
-        });
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("SignupScreen.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            signup = new Stage();
+            signup.setResizable(true);
+            signup.setTitle("Sign Up");
+            signup.setScene(scene);
+            signup.initModality(Modality.APPLICATION_MODAL);
+            signup.show();
+        }catch (IOException e) {
+        }
     }
 
     

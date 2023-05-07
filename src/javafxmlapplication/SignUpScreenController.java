@@ -86,58 +86,54 @@ public class SignUpScreenController implements Initializable {
     
     @FXML
     private void onClickDoneLogin() {
-       doneButton.setOnMouseClicked((MouseEvent event) -> {
-           if(!checkNumber(phoneField.getText())|| phoneField.getText().equals("")){errorPhone.setText("Non-numeric character introduced.");}
-           else{errorPhone.setText("");}
-           
-           if(passwordField.getText().length() < 6){errorPassword.setText("Must be at least 6 char. long.");}
-           else{errorPassword.setText("");}
-           
-           if(!cardField.getText().equals("")&&(!checkNumber(cardField.getText()) || cardField.getText().length() != 16)){errorCardNumber.setText("Incorrect input.");}
-           else{errorCardNumber.setText("");cardField.setText("");}
-           
-           if(!csvField.getText().equals("")&&(!checkNumber(csvField.getText())|| csvField.getText().length() != 3)){errorCSV.setText("Incorrect input.");}
-           else{errorCSV.setText("");csvField.setText(""+-1);}
-           
-           try{
-                Club c = Club.getInstance();
-                if(c.existsLogin(userField.getText())|| userField.getText().equals("")){errorUsername.setText("Already in use, or is not valid.");}
-                else{errorUsername.setText("");}
-            }catch(IOException | NumberFormatException | ClubDAOException e){}
-           
-           if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
-           && !nameField.getText().equals("")&& !familyNameField.getText().equals("")&& errorCSV.getText().equals("") && errorUsername.getText().equals(""))
-           {
-                try{
-                    Club c = Club.getInstance();
-                    Member m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
-                    userField.getText(),passwordField.getText(), cardField.getText(), 
-                    Integer.parseInt(csvField.getText()), icon);
-                }catch(IOException | NumberFormatException | ClubDAOException e){}
-                signup.close();
-           }
-           else{signUpSuccessful.setText("Solve errors before Signing Up.");}
-        });
+        if(!checkNumber(phoneField.getText())|| phoneField.getText().equals("")){errorPhone.setText("Non-numeric character introduced.");}
+        else{errorPhone.setText("");}
+
+        if(passwordField.getText().length() < 6){errorPassword.setText("Must be at least 6 char. long.");}
+        else{errorPassword.setText("");}
+
+        if(!cardField.getText().equals("")&&(!checkNumber(cardField.getText()) || cardField.getText().length() != 16)){errorCardNumber.setText("Incorrect input.");}
+        else{errorCardNumber.setText("");cardField.setText("");}
+
+        if(!csvField.getText().equals("")&&(!checkNumber(csvField.getText())|| csvField.getText().length() != 3)){errorCSV.setText("Incorrect input.");}
+        else{errorCSV.setText("");csvField.setText(""+-1);}
+
+        try{
+             Club c = Club.getInstance();
+             if(c.existsLogin(userField.getText())|| userField.getText().equals("")){errorUsername.setText("Already in use, or is not valid.");}
+             else{errorUsername.setText("");}
+         }catch(IOException | NumberFormatException | ClubDAOException e){}
+
+        if(errorCardNumber.getText().equals("")&& errorPhone.getText().equals("")&& errorPassword.getText().equals("")
+        && !nameField.getText().equals("")&& !familyNameField.getText().equals("")&& errorCSV.getText().equals("") && errorUsername.getText().equals(""))
+        {
+             try{
+                 Club c = Club.getInstance();
+                 Member m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
+                 userField.getText(),passwordField.getText(), cardField.getText(), 
+                 Integer.parseInt(csvField.getText()), icon);
+             }catch(IOException | NumberFormatException | ClubDAOException e){}
+             signup.close();
+        }
+        else{signUpSuccessful.setText("Solve errors before Signing Up.");}
     }
 
     @FXML
     private void onUserIconClicked(){
-        userIcon.setOnMouseClicked((MouseEvent event) ->{
-            FileChooser fc = new FileChooser();
-            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG files","*.png"),
-            new ExtensionFilter("JPEG files","*.jpeg"),
-            new ExtensionFilter("All images","*.jpeg", "*.png"));
-            imagePath.setText("Wait while the image is loaded...");
-            String prevmessage = signUpSuccessful.getText();
-            signUpSuccessful.setText("The image is loading... the screen may be unresponsive.");
-            File selectedFile = fc.showOpenDialog(signup);
-            if(selectedFile != null){
-                Image image = new Image(selectedFile.getPath());
-                icon = image;
-                imagePath.setText("File uploaded successfully!");
-                signUpSuccessful.setText(prevmessage);
-            }
-            else{imagePath.setText("");signUpSuccessful.setText(prevmessage);}
-        });
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG files","*.png"),
+        new ExtensionFilter("JPEG files","*.jpeg"),
+        new ExtensionFilter("All images","*.jpeg", "*.png"));
+        imagePath.setText("Wait while the image is loaded...");
+        String prevmessage = signUpSuccessful.getText();
+        signUpSuccessful.setText("The image is loading... the screen may be unresponsive.");
+        File selectedFile = fc.showOpenDialog(signup);
+        if(selectedFile != null){
+            Image image = new Image(selectedFile.getPath());
+            icon = image;
+            imagePath.setText("File uploaded successfully!");
+            signUpSuccessful.setText(prevmessage);
+        }
+        else{imagePath.setText("");signUpSuccessful.setText(prevmessage);}
     }
 }
