@@ -61,8 +61,6 @@ public class SignUpScreenController implements Initializable {
     private Button userIcon;
     @FXML
     private Text imagePath;
-    
-    public static Image icon = null;
 
     /**
      * Initializes the controller class.
@@ -95,11 +93,11 @@ public class SignUpScreenController implements Initializable {
            if(passwordField.getText().length() < 6){errorPassword.setText("Must be at least 6 char. long.");}
            else{errorPassword.setText("");}
            
-           if(!checkNumber(cardField.getText()) || cardField.getText().length() != 16){errorCardNumber.setText("Incorrect input.");}
-           else{errorCardNumber.setText("");}
+           if(!cardField.getText().equals("")&&(!checkNumber(cardField.getText()) || cardField.getText().length() != 16)){errorCardNumber.setText("Incorrect input.");}
+           else{errorCardNumber.setText("");cardField.setText("");}
            
-           if(!checkNumber(csvField.getText())|| csvField.getText().length() != 3){errorCSV.setText("Incorrect input.");}
-           else{errorCSV.setText("");}
+           if(!csvField.getText().equals("")&&(!checkNumber(csvField.getText())|| csvField.getText().length() != 3)){errorCSV.setText("Incorrect input.");}
+           else{errorCSV.setText("");csvField.setText(""+-1);}
            
            try{
                 Club c = Club.getInstance();
@@ -142,5 +140,4 @@ public class SignUpScreenController implements Initializable {
             else{imagePath.setText("");signUpSuccessful.setText(prevmessage);}
         });
     }
-    
 }

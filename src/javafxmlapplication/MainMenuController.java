@@ -36,8 +36,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private Text usernameFieldBanner;
     @FXML
-    private Text nameSurnameFieldBanner1;
-    @FXML
     private Button signOutButton;
     @FXML
     private Button checkInfoButton;
@@ -49,17 +47,26 @@ public class MainMenuController implements Initializable {
     private Text courtSelectedPrompt;
     @FXML
     private Slider sessionLength;
+    @FXML
+    private Text courtSelectedPrompt1;
+    @FXML
+    private Text nameSurnameFieldBanner;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        usernameFieldBanner.setText("@"+memberLoggedIn.getNickName());
+        nameSurnameFieldBanner.setText(memberLoggedIn.getName()+" "+memberLoggedIn.getSurname());
+        userPictureBanner.setImage(memberLoggedIn.getImage());
     }    
 
     @FXML
-    private void onClickboton1(ActionEvent event) {
+    private void onClickboton1() {
+        boton1.setOnMouseClicked((MouseEvent event) -> {
+            initialize(null,null);
+        });
     }
 
     @FXML
@@ -85,13 +92,13 @@ public class MainMenuController implements Initializable {
         checkInfoButton.setOnMouseClicked((MouseEvent event) -> {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("SignUpScreen.fxml"));
+                fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("CheckData.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
-                signup = new Stage();
-                signup.setResizable(true);
-                signup.setTitle("Login");
-                signup.setScene(scene);
-                signup.show();
+                checkData = new Stage();
+                checkData.setResizable(true);
+                checkData.setTitle("CheckingData");
+                checkData.setScene(scene);
+                checkData.show();
             }catch (IOException e) {
             }
         });
