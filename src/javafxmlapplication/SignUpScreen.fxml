@@ -118,15 +118,15 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(16 digits, all numbers, no spaces)" textAlignment="CENTER" wrappingWidth="155.587890625" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(16 digits, all numbers, no spaces) (Optional field)" textAlignment="CENTER" wrappingWidth="155.587890625" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="10.0" />
                </font>
                <GridPane.margin>
-                  <Insets top="30.0" />
+                  <Insets bottom="-20.0" top="30.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CSV:" textAlignment="RIGHT" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SVC:" textAlignment="RIGHT" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <font>
                   <Font size="15.0" />
                </font>
@@ -136,12 +136,12 @@
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </TextField>
-            <Text layoutX="10.0" layoutY="729.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(3 digits at the back of the credit card)" textAlignment="CENTER" wrappingWidth="176.587890625" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+            <Text layoutX="10.0" layoutY="729.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(3 digits at the back of the credit card) (Optional field)" textAlignment="CENTER" wrappingWidth="176.587890625" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <font>
                   <Font size="10.0" />
                </font>
                <GridPane.margin>
-                  <Insets top="30.0" />
+                  <Insets bottom="-20.0" top="30.0" />
                </GridPane.margin>
             </Text>
             <Text fx:id="errorPassword" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
