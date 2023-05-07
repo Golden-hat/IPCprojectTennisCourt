@@ -21,7 +21,7 @@ public class JavaFXMLApplication extends Application {
     public static Stage mainScreen;
     public static Stage checkData;
     public static Member memberLoggedIn;
-    public static Image icon = null;
+    public static Image icon = new Image("img/Avatar_icon_green.svg.png");
     
     @Override
     public void start(Stage stage) throws Exception {

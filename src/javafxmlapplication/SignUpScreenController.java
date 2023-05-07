@@ -96,7 +96,7 @@ public class SignUpScreenController implements Initializable {
         else{errorCardNumber.setText("");cardField.setText("");}
 
         if(!csvField.getText().equals("")&&(!checkNumber(csvField.getText())|| csvField.getText().length() != 3)){errorCSV.setText("Incorrect input.");}
-        else{errorCSV.setText("");csvField.setText(""+-1);}
+        else{errorCSV.setText("");}
 
         try{
              Club c = Club.getInstance();
@@ -109,9 +109,17 @@ public class SignUpScreenController implements Initializable {
         {
              try{
                  Club c = Club.getInstance();
-                 Member m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
+                 Member m;
+                 if(csvField.getText().equals("")){
+                 m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
+                 userField.getText(),passwordField.getText(), cardField.getText(), 
+                 -1, icon);
+                 }
+                 else{
+                 m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
                  userField.getText(),passwordField.getText(), cardField.getText(), 
                  Integer.parseInt(csvField.getText()), icon);
+                 }
              }catch(IOException | NumberFormatException | ClubDAOException e){}
              signup.close();
         }
