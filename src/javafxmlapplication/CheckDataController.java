@@ -103,7 +103,6 @@ public class CheckDataController implements Initializable {
         surnameMember.setText(memberLoggedIn.getSurname());
         phoneMember.setText(memberLoggedIn.getTelephone());
         usernameMember.setText(memberLoggedIn.getNickName());
-        userField.setText(memberLoggedIn.getNickName());
         passwordMember.setText(memberLoggedIn.getPassword());
         creditCardMember.setText(memberLoggedIn.getCreditCard());
         csvMember.setText(""+memberLoggedIn.getSvc());
