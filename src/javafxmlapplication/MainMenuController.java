@@ -6,7 +6,12 @@ package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +21,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static javafxmlapplication.JavaFXMLApplication.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.Club;
+import model.ClubDAOException;
+import model.Court;
 
 /**
  * FXML Controller class
@@ -30,7 +41,6 @@ import static javafxmlapplication.JavaFXMLApplication.*;
  */
 public class MainMenuController implements Initializable {
 
-    @FXML
     private Button boton1;
     @FXML
     private ImageView userPictureBanner;
@@ -41,8 +51,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button checkInfoButton;
     @FXML
-    private ListView<?> reservationList;
-    @FXML
     private DatePicker dateSelector;
     @FXML
     private Text courtSelectedPrompt;
@@ -52,7 +60,36 @@ public class MainMenuController implements Initializable {
     private Text courtSelectedPrompt1;
     @FXML
     private Text nameSurnameFieldBanner;
+    @FXML
+    private Button previousDayB;
+    @FXML
+    private Button dayAfterB;
+    @FXML
+    private Button courtsAvailable;
+    @FXML
+    private Button courtsReserved;
+    @FXML
+    private Button reservationB;
+    @FXML
+    private Button NorthCourt;
+    @FXML
+    private Button SouthCourt;
+    @FXML
+    private Button WestCourt;
+    @FXML
+    private Button EastCourt;
+    @FXML
+    private Button PondCourt;
+    @FXML
+    private Button MillCourt;
+    @FXML
+    private TableView<Court> TableList;
 
+    ObservableList<Court> courts= null;
+    @FXML
+    private TableColumn<Court, String> firstColumn;
+    @FXML
+    private TableColumn<Court, String> secondColumn;
     /**
      * Initializes the controller class.
      */
@@ -61,6 +98,32 @@ public class MainMenuController implements Initializable {
         usernameFieldBanner.setText("@"+memberLoggedIn.getNickName());
         nameSurnameFieldBanner.setText(memberLoggedIn.getName()+" "+memberLoggedIn.getSurname());
         userPictureBanner.setImage(memberLoggedIn.getImage());
+        /*
+        ArrayList<String> courtsdata= new ArrayList<String>();
+        courtsdata.add(new String("buen"));
+        courtsdata.add(new String("hol2"));
+        courts=FXCollections.observableArrayList(courtsdata);
+        TableList.setItems(courts);
+        firstColumn.setCellValueFactory(new PropertyValueFactory<String, String>("hola"));         
+        secondColumn.setCellValueFactory(new PropertyValueFactory<String, String>("User"));
+        */
+        
+        
+        
+        try {
+            Club club= Club.getInstance();
+            ArrayList<Court> courtsdata= (ArrayList<Court>) club.getCourts();
+            courts= FXCollections.observableList(courtsdata);
+            TableList.setItems(courts);
+            firstColumn.setCellValueFactory(new PropertyValueFactory<Court, String>("Court"));         
+            secondColumn.setCellValueFactory(new PropertyValueFactory<Court, String>("User"));
+        } catch (ClubDAOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        
     }    
 
     @FXML
@@ -104,6 +167,24 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onDateSelected(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void onViewBookedCourts(ActionEvent event) {
+    }
+
+    @FXML
+    private void onShowAvailable(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void onShowReserved(ActionEvent event) {
+    }
+
+    @FXML
+    private void onMakeReservation(ActionEvent event) {
     }
     
 }
