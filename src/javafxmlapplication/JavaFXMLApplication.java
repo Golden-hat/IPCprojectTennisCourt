@@ -6,6 +6,7 @@
 package javafxmlapplication;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,10 +24,14 @@ public class JavaFXMLApplication extends Application {
     public static Stage checkData;
     public static Member memberLoggedIn;
     public static Image icon = new Image("img/Avatar_icon_green.svg.png");
+    public static LocalDate date = LocalDate.now();
+    
+    public static boolean NorthSelected = false;
+    public static String selectedCourtText = "All Courts";
     
     @Override
     public void start(Stage stage) throws Exception {
-        // try{Club c = Club.getInstance(); c.setInitialData();}catch(Exception e){}
+        try{Club c = Club.getInstance(); c.setInitialData();}catch(Exception e){}
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -45,10 +50,11 @@ public class JavaFXMLApplication extends Application {
         login.show();
     }
     
-    public void changeScene(String fxml, Stage stg) throws IOException{
+    public void changeScene(String fxml, Stage stg, int x, int y) throws IOException{
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(pane);
-        stg.centerOnScreen();
+        stg.setX(x);
+        stg.setY(y);
     }
     
     /**

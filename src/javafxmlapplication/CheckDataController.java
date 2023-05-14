@@ -180,7 +180,7 @@ public class CheckDataController implements Initializable {
 
             JavaFXMLApplication c = new JavaFXMLApplication();
             try{
-            c.changeScene("mainMenu.fxml", mainScreen);
+            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
             }catch(IOException e){}
             
             signUpSuccessful.setText("Changes applied successfully.");
