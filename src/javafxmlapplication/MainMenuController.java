@@ -6,6 +6,8 @@ package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -30,6 +32,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static javafxmlapplication.JavaFXMLApplication.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import static javafx.util.Duration.hours;
 import model.Club;
 import model.ClubDAOException;
 import model.Court;
@@ -93,11 +96,16 @@ public class MainMenuController implements Initializable {
     /**
      * Initializes the controller class.
      */
+   
+    
+    LocalDate date;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usernameFieldBanner.setText("@"+memberLoggedIn.getNickName());
         nameSurnameFieldBanner.setText(memberLoggedIn.getName()+" "+memberLoggedIn.getSurname());
         userPictureBanner.setImage(memberLoggedIn.getImage());
+        dateSelector.setValue(LocalDate.now());
+        date=LocalDate.now();
         /*
         ArrayList<String> courtsdata= new ArrayList<String>();
         courtsdata.add(new String("buen"));
@@ -109,7 +117,7 @@ public class MainMenuController implements Initializable {
         */
         
         
-        
+        /*
         try {
             Club club= Club.getInstance();
             ArrayList<Court> courtsdata= (ArrayList<Court>) club.getCourts();
@@ -123,7 +131,7 @@ public class MainMenuController implements Initializable {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-        
+        */
     }    
 
     @FXML
@@ -164,10 +172,10 @@ public class MainMenuController implements Initializable {
         }catch (IOException e) {
         }
 }
-
+    
     @FXML
     private void onDateSelected(ActionEvent event) {
-        
+        date= dateSelector.getValue();
     }
 
     @FXML
@@ -185,6 +193,17 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onMakeReservation(ActionEvent event) {
+    }
+
+
+    @FXML
+    private void onDayplus1(MouseEvent event) {
+        dateSelector.setValue(date.plusDays(1));
+    }
+
+    @FXML
+    private void onDayminus1(MouseEvent event) {
+        dateSelector.setValue(date.minusDays(1));
     }
     
 }

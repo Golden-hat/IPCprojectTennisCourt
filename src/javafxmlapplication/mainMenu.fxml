@@ -211,12 +211,12 @@
                   <Insets bottom="35.0" left="20.0" />
                </GridPane.margin>
             </Text>
-            <Button fx:id="previousDayB" mnemonicParsing="false" text="Previous day" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Button fx:id="previousDayB" mnemonicParsing="false" onMouseClicked="#onDayminus1" text="Previous day" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets left="20.0" top="5.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="dayAfterB" mnemonicParsing="false" text="Next day" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Button fx:id="dayAfterB" mnemonicParsing="false" onMouseClicked="#onDayplus1" text="Next day" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="20.0" top="5.0" />
                </GridPane.margin>
