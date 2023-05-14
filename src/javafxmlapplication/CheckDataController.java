@@ -99,6 +99,7 @@ public class CheckDataController implements Initializable {
         resetIcon = false;
         resetCard = false;
         setIcon = false;
+        
         nameMember.setText(memberLoggedIn.getName());
         surnameMember.setText(memberLoggedIn.getSurname());
         phoneMember.setText(memberLoggedIn.getTelephone());
@@ -107,6 +108,7 @@ public class CheckDataController implements Initializable {
         passwordMember.setText(memberLoggedIn.getPassword());
         creditCardMember.setText(memberLoggedIn.getCreditCard());
         csvMember.setText(""+memberLoggedIn.getSvc());
+        
         if(memberLoggedIn.getImage() != null){
             iconMember.setImage(memberLoggedIn.getImage());
         }
@@ -122,6 +124,7 @@ public class CheckDataController implements Initializable {
         String prevmessage = signUpSuccessful.getText();
         signUpSuccessful.setText("The image is loading... the screen may be unresponsive.");
         File selectedFile = fc.showOpenDialog(signup);
+        
         if(selectedFile != null){
             Image image = new Image(selectedFile.getPath());
             icon = image;

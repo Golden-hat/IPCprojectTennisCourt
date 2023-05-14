@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import model.Club;
 import model.Member;
 
 public class JavaFXMLApplication extends Application {
@@ -25,6 +26,7 @@ public class JavaFXMLApplication extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        // try{Club c = Club.getInstance(); c.setInitialData();}catch(Exception e){}
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
         FXMLLoader fxmlLoader = new FXMLLoader();
