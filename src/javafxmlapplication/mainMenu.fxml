@@ -210,7 +210,7 @@
                   <Insets bottom="35.0" left="20.0" />
                </GridPane.margin>
             </Text>
-            <Button fx:id="previousDayB" mnemonicParsing="false" text="Previous day" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Button fx:id="previousDayB" mnemonicParsing="false" onMouseClicked="#onDayminus1" text="Previous day" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets left="20.0" top="5.0" />
                </GridPane.margin>

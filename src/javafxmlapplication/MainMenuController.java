@@ -109,11 +109,25 @@ public class MainMenuController implements Initializable {
     /**
      * Initializes the controller class.
      */
+   
+    
+    LocalDate date;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usernameFieldBanner.setText("@"+memberLoggedIn.getNickName());
         nameSurnameFieldBanner.setText(memberLoggedIn.getName()+" "+memberLoggedIn.getSurname());
         userPictureBanner.setImage(memberLoggedIn.getImage());
+        dateSelector.setValue(LocalDate.now());
+        date=LocalDate.now();
+        /*
+        ArrayList<String> courtsdata= new ArrayList<String>();
+        courtsdata.add(new String("buen"));
+        courtsdata.add(new String("hol2"));
+        courts=FXCollections.observableArrayList(courtsdata);
+        TableList.setItems(courts);
+        firstColumn.setCellValueFactory(new PropertyValueFactory<String, String>("hola"));         
+        secondColumn.setCellValueFactory(new PropertyValueFactory<String, String>("User"));
+        */
         
         setDefaultAll();
         
@@ -252,4 +266,16 @@ public class MainMenuController implements Initializable {
            this.time = time;
         }
     }
+
+
+    @FXML
+    private void onDayplus1(MouseEvent event) {
+        dateSelector.setValue(date.plusDays(1));
+    }
+
+    @FXML
+    private void onDayminus1(MouseEvent event) {
+        dateSelector.setValue(date.minusDays(1));
+    }
+    
 }
