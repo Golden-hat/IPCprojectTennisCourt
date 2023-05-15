@@ -95,6 +95,12 @@ public class MainMenuController implements Initializable {
     public List<Booking> arrayListBooking = new ArrayList<>();
     public ObservableList<Booking> bookingList = FXCollections.observableArrayList();
     public ObservableList<FreeSlots> availableHours = FXCollections.observableArrayList();
+    @FXML
+    private Text courtSelectedPrompt2;
+    @FXML
+    private Text courtSelectedPrompt21;
+    @FXML
+    private Text courtSelectedPrompt22;
 
     
     @Override
@@ -145,7 +151,56 @@ public class MainMenuController implements Initializable {
             c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
         }catch(IOException e){}
     }
+    
+    @FXML
+    private void onClickSouthCourt(ActionEvent event) {
+        SouthSelected = true;
+        selectedCourtText = "South Court";
+        JavaFXMLApplication c = new JavaFXMLApplication();
+        try{
+            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
+        }catch(IOException e){}
+    }
 
+    @FXML
+    private void onClickWestCourt(ActionEvent event) {
+        WestSelected = true;
+        selectedCourtText = "West Court";
+        JavaFXMLApplication c = new JavaFXMLApplication();
+        try{
+            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
+        }catch(IOException e){}
+    }
+
+    @FXML
+    private void onClickEastCourt(ActionEvent event) {
+        EastSelected = true;
+        selectedCourtText = "East Court";
+        JavaFXMLApplication c = new JavaFXMLApplication();
+        try{
+            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
+        }catch(IOException e){}
+    }
+
+    @FXML
+    private void onClickPondCourt(ActionEvent event) {
+        PondSelected = true;
+        selectedCourtText = "Pond Court";
+        JavaFXMLApplication c = new JavaFXMLApplication();
+        try{
+            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
+        }catch(IOException e){}
+    }
+
+    @FXML
+    private void onClickMillCourt(ActionEvent event) {
+        MillSelected = true;
+        selectedCourtText = "Mill Court";
+        JavaFXMLApplication c = new JavaFXMLApplication();
+        try{
+            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
+        }catch(IOException e){}
+    }
     @FXML
     private void onSignOutButtonClicked() {
         try {
@@ -301,6 +356,8 @@ public class MainMenuController implements Initializable {
         c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
         }catch(IOException e){}
     }
+
+    
 
     public class FreeSlots {
 

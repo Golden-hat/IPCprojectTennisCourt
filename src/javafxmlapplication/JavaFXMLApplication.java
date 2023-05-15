@@ -27,6 +27,11 @@ public class JavaFXMLApplication extends Application {
     public static LocalDate date = LocalDate.now();
     
     public static boolean NorthSelected = false;
+    public static boolean SouthSelected = false;
+    public static boolean WestSelected = false;
+    public static boolean EastSelected = false;
+    public static boolean PondSelected = false;
+    public static boolean MillSelected = false;
     public static String selectedCourtText = "All Courts";
     
     @Override
