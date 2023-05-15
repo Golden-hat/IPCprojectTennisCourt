@@ -33,6 +33,7 @@ public class JavaFXMLApplication extends Application {
     public static boolean PondSelected = false;
     public static boolean MillSelected = false;
     public static String selectedCourtText = "All Courts";
+    public static String bookingStatus = "";
     
     @Override
     public void start(Stage stage) throws Exception {

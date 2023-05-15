@@ -93,7 +93,7 @@ public class SignUpScreenController implements Initializable {
         else{errorPassword.setText("");}
 
         if(!cardField.getText().equals("")&&(!checkNumber(cardField.getText()) || cardField.getText().length() != 16)){errorCardNumber.setText("Incorrect input.");}
-        else{errorCardNumber.setText("");cardField.setText("");}
+        else{errorCardNumber.setText("");}
 
         if(!csvField.getText().equals("")&&(!checkNumber(csvField.getText())|| csvField.getText().length() != 3)){errorCSV.setText("Incorrect input.");}
         else{errorCSV.setText("");}
@@ -110,7 +110,7 @@ public class SignUpScreenController implements Initializable {
              try{
                  Club c = Club.getInstance();
                  Member m;
-                 if(csvField.getText().equals("")){
+                 if(csvField.getText().equals("") && cardField.getText().equals("")){
                  m = c.registerMember(nameField.getText(), familyNameField.getText(), phoneField.getText(), 
                  userField.getText(),passwordField.getText(), cardField.getText(), 
                  -1, icon);

@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -49,8 +50,6 @@ public class MainMenuController implements Initializable {
     private Button checkInfoButton;
     @FXML
     private DatePicker dateSelector;
-    @FXML
-    private Text courtSelectedPrompt;
     @FXML
     private Text nameSurnameFieldBanner;
     @FXML
@@ -91,17 +90,14 @@ public class MainMenuController implements Initializable {
     private Button nextDayB;
     @FXML
     private Text courtSelected;
+    @FXML
+    private Text DatePrompt;
+    @FXML
+    private Text ErrorBooking;
     
     public List<Booking> arrayListBooking = new ArrayList<>();
     public ObservableList<Booking> bookingList = FXCollections.observableArrayList();
     public ObservableList<FreeSlots> availableHours = FXCollections.observableArrayList();
-    @FXML
-    private Text courtSelectedPrompt2;
-    @FXML
-    private Text courtSelectedPrompt21;
-    @FXML
-    private Text courtSelectedPrompt22;
-
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -110,6 +106,8 @@ public class MainMenuController implements Initializable {
         userPictureBanner.setImage(memberLoggedIn.getImage());
         dateSelector.setValue(date);
         courtSelected.setText(selectedCourtText);
+        DatePrompt.setText(date.toString());
+        ErrorBooking.setText(bookingStatus);
         
         availableHours.clear();
         arrayListBooking.clear();
@@ -142,9 +140,14 @@ public class MainMenuController implements Initializable {
     }
     
     
-    @FXML
+     @FXML
     private void onClickNorthCourt() {
         NorthSelected = true;
+        SouthSelected  = false;
+        WestSelected  = false;
+        EastSelected = false;
+        PondSelected  = false; 
+        MillSelected = false;
         selectedCourtText = "North Court";
         JavaFXMLApplication c = new JavaFXMLApplication();
         try{
@@ -155,7 +158,27 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onClickSouthCourt(ActionEvent event) {
         SouthSelected = true;
+        NorthSelected  = false;
+        WestSelected  = false;
+        EastSelected = false;
+        PondSelected  = false; 
+        MillSelected = false;
         selectedCourtText = "South Court";
+        JavaFXMLApplication c = new JavaFXMLApplication();
+        try{
+            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
+        }catch(IOException e){}
+    }
+    
+    @FXML
+    private void onClickMillCourt(ActionEvent event) {
+        MillSelected = true;
+        SouthSelected = false;
+        NorthSelected  = false;
+        WestSelected  = false;
+        EastSelected = false;
+        PondSelected  = false; 
+        selectedCourtText = "Mill Court";
         JavaFXMLApplication c = new JavaFXMLApplication();
         try{
             c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
@@ -165,6 +188,11 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onClickWestCourt(ActionEvent event) {
         WestSelected = true;
+        NorthSelected  = false;
+        SouthSelected  = false;
+        EastSelected = false;
+        PondSelected  = false; 
+        MillSelected = false;
         selectedCourtText = "West Court";
         JavaFXMLApplication c = new JavaFXMLApplication();
         try{
@@ -175,6 +203,11 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onClickEastCourt(ActionEvent event) {
         EastSelected = true;
+        NorthSelected  = false;
+        SouthSelected  = false;
+        WestSelected  = false;
+        PondSelected  = false; 
+        MillSelected = false;
         selectedCourtText = "East Court";
         JavaFXMLApplication c = new JavaFXMLApplication();
         try{
@@ -185,6 +218,11 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onClickPondCourt(ActionEvent event) {
         PondSelected = true;
+        NorthSelected  = false;
+        SouthSelected  = false;
+        WestSelected  = false;
+        EastSelected = false;
+        MillSelected = false;
         selectedCourtText = "Pond Court";
         JavaFXMLApplication c = new JavaFXMLApplication();
         try{
@@ -193,16 +231,8 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void onClickMillCourt(ActionEvent event) {
-        MillSelected = true;
-        selectedCourtText = "Mill Court";
-        JavaFXMLApplication c = new JavaFXMLApplication();
-        try{
-            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
-    }
-    @FXML
     private void onSignOutButtonClicked() {
+        icon = new Image("img/Avatar_icon_green.svg.png");
         try {
             mainScreen.close();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -231,10 +261,11 @@ public class MainMenuController implements Initializable {
             checkData.show();
         }catch (IOException e) {
         }
-}
+    }
+    
     public void setDefaultAll(){
         
-        String[] hours = {"6:00","7:00","8:00","9:00","10:00","11:00",
+        String[] hours = {"9:00","10:00","11:00",
             "12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00",
             "20:00","21:00","22:00"};
         
@@ -244,7 +275,7 @@ public class MainMenuController implements Initializable {
             arrayListBooking = c.getForDayBookings(date);
             
             for (int i = 0; i < 6; i++) {
-                for(int j = 0; j < 17; j++){
+                for(int j = 0; j < 14; j++){
                     LocalTime n = LocalTime.of(Integer.parseInt(hours[j].substring(0, hours[j].length()-3)),0);
                     FreeSlots f = new FreeSlots(hours[j], listCourts.get(i).getName(), n);
                     
@@ -268,7 +299,7 @@ public class MainMenuController implements Initializable {
     
     public void setDefaultSpecificCourt(int i){
         
-        String[] hours = {"6:00","7:00","8:00","9:00","10:00","11:00",
+        String[] hours = {"9:00","10:00","11:00",
             "12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00",
             "20:00","21:00","22:00"};
         
@@ -277,7 +308,7 @@ public class MainMenuController implements Initializable {
             List<Court> listCourts = c.getCourts();
             arrayListBooking = c.getForDayBookings(date);
             
-            for(int j = 0; j < 17; j++){
+            for(int j = 0; j < 14; j++){
                     LocalTime n = LocalTime.of(Integer.parseInt(hours[j].substring(0, hours[j].length()-3)),0);
                     FreeSlots f = new FreeSlots(hours[j], listCourts.get(i).getName(), n);
                     
@@ -310,14 +341,24 @@ public class MainMenuController implements Initializable {
     public boolean isBackToBack(Booking b){
         try{
             Club c = Club.getInstance();
-            List<Booking> bookingLists = c.getUserBookings(memberLoggedIn.getName());
-            for(Booking aux : bookingLists){
-                System.out.println(aux.getFromTime().toString().substring(0, aux.getFromTime().toString().length() - 3));
-                if(Integer.parseInt(aux.getFromTime().toString().substring(0, aux.getFromTime().toString().length()-3)) 
-                    == Integer.parseInt(b.getFromTime().toString().substring(0, b.getFromTime().toString().length()-3)) + 1
-                    || Integer.parseInt(aux.getFromTime().toString().substring(0, aux.getFromTime().toString().length()-3)) 
-                    == Integer.parseInt(b.getFromTime().toString().substring(0, b.getFromTime().toString().length()-3)) - 2){
-                    return true;
+            List<Booking> bookingLists = c.getUserBookings(memberLoggedIn.getNickName());
+            if(bookingLists.size() < 3){
+                return false;
+            }
+            else{
+                for(int i = 0; i < bookingLists.size() - 2; i++){
+                    Booking first = bookingLists.get(i);
+                    Booking second =  bookingLists.get(i+1);
+                    Booking third = bookingLists.get(i+2);
+                    
+                    if(first.getMadeForDay().equals(second.getMadeForDay()) &&
+                    first.getMadeForDay().equals(third.getMadeForDay()) &&
+                    first.getCourt().equals(second.getCourt()) && first.getCourt().equals(third.getCourt())
+                    && first.getFromTime().plusHours(1).equals(second.getFromTime())
+                    && first.getFromTime().plusHours(2).equals(third.getFromTime())){
+                        bookingStatus = "Can't make more than 2 bookings back to back.";
+                        return true;
+                    }
                 }
             }
         }
@@ -327,16 +368,31 @@ public class MainMenuController implements Initializable {
     
     @FXML
     private void onMakeReservation(ActionEvent event) {
-        
         try{
             Club c = Club.getInstance();
             Court selected = c.getCourt(TableList1.getSelectionModel().getSelectedItem().getCourt());
             LocalTime t = TableList1.getSelectionModel().getSelectedItem().getTime();
             LocalDateTime datetime = LocalDateTime.of(date, t);
+            
             if(datetime != null && t != null && selected != null){
-                Booking b = c.registerBooking(datetime, date, t, true, selected , memberLoggedIn);
-                if(isBackToBack(b)){c.removeBooking(b);}
-                else{bookingList.add(b);}             
+                System.out.println(datetime.compareTo(LocalDateTime.now()));
+                if(datetime.compareTo(LocalDateTime.now()) > 0){
+                    Booking b = c.registerBooking(datetime, date, t, false, selected , memberLoggedIn);
+                    
+                    if(memberLoggedIn.getSvc() == -1 && memberLoggedIn.getCreditCard().equals("")){ b.setPaid(false); }
+                    else{b.setPaid(true); }
+                    
+                    boolean isIt = isBackToBack(b);
+                    System.out.println(isIt);
+                    if(isIt){System.out.println("booking removed"); c.removeBooking(b);}
+                    else{
+                        bookingStatus = "Booking made successfully!";
+                        bookingList.add(b);                    
+                    }             
+                }
+                else{
+                    bookingStatus = "Cannot make a reservation in the past!";
+                }
             }
         }
         catch(Exception e){}
@@ -349,7 +405,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onViewAllCourts() {
-        NorthSelected = false;
+        NorthSelected  = false;
+        SouthSelected  = false;
+        WestSelected  = false;
+        EastSelected = false;
+        PondSelected  = false; 
+        MillSelected = false;
         selectedCourtText = "All Courts";
         JavaFXMLApplication c = new JavaFXMLApplication();
         try{
