@@ -24,8 +24,8 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="149.0" minHeight="150.0" prefHeight="142.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="79.0" minHeight="50.0" prefHeight="79.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="149.0" minHeight="133.0" prefHeight="133.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="79.0" minHeight="50.0" prefHeight="67.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="150.0" minHeight="50.0" prefHeight="99.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="227.0" minHeight="80.0" prefHeight="160.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="219.0" minHeight="50.0" prefHeight="75.0" valignment="CENTER" vgrow="ALWAYS" />
@@ -67,12 +67,12 @@
                   <Insets bottom="50.0" />
                </GridPane.margin>
             </Text>
-            <Button fx:id="LoginButton" mnemonicParsing="false" onAction="#OnClickedLogin" prefHeight="25.0" prefWidth="84.0" text="Log In!" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Button fx:id="LoginButton" mnemonicParsing="false" onAction="#OnClickedLogin" prefHeight="25.0" prefWidth="204.0" text="Log In!" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="60.0" right="40.0" />
+                  <Insets bottom="50.0" right="40.0" />
                </GridPane.margin>
             </Button>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account yet? Sign up!" textAlignment="CENTER" wrappingWidth="138.88671875" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account yet? Sign up!" textAlignment="CENTER" wrappingWidth="103.88671875" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <font>
                   <Font size="13.0" />
                </font>
