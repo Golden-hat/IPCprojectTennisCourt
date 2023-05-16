@@ -139,8 +139,7 @@ public class MainMenuController implements Initializable {
         catch(Exception e){}
     }
     
-    
-     @FXML
+    @FXML
     private void onClickNorthCourt() {
         NorthSelected = true;
         SouthSelected  = false;
@@ -366,6 +365,22 @@ public class MainMenuController implements Initializable {
         return false;
     }
     
+    public boolean existsOnAnotherCourt(Booking b){
+        try{
+            Club c = Club.getInstance();
+            List<Booking> bookingLists = c.getUserBookings(memberLoggedIn.getNickName());
+            for(int i = 0; i < bookingLists.size(); i++){
+                if(b.getBookingDate().equals(bookingLists.get(i).getBookingDate())
+                && !b.getCourt().equals(bookingLists.get(i).getCourt())){
+                    bookingStatus = "Can't book 2 courts at the same hour!";
+                    return true;
+                }
+            }
+        }
+        catch(Exception e){}
+        return false;
+    }
+    
     @FXML
     private void onMakeReservation(ActionEvent event) {
         try{
@@ -382,17 +397,16 @@ public class MainMenuController implements Initializable {
                     if(memberLoggedIn.getSvc() == -1 && memberLoggedIn.getCreditCard().equals("")){ b.setPaid(false); }
                     else{b.setPaid(true); }
                     
-                    boolean isIt = isBackToBack(b);
-                    System.out.println(isIt);
-                    if(isIt){System.out.println("booking removed"); c.removeBooking(b);}
+                    boolean isBackToBack = isBackToBack(b);
+                    boolean existsOnAnotherCourt = existsOnAnotherCourt(b);
+                    System.out.println(isBackToBack && existsOnAnotherCourt(b));
+                    if(isBackToBack || existsOnAnotherCourt){System.out.println("booking removed"); c.removeBooking(b);}
                     else{
                         bookingStatus = "Booking made successfully!";
                         bookingList.add(b);                    
                     }             
                 }
-                else{
-                    bookingStatus = "Cannot make a reservation in the past!";
-                }
+                else{bookingStatus = "Cannot make reservation in the past!";}
             }
         }
         catch(Exception e){}
