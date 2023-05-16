@@ -112,8 +112,18 @@ public class MainMenuController implements Initializable {
         availableHours.clear();
         arrayListBooking.clear();
 
-        if(NorthSelected){
+         if(NorthSelected){
             setDefaultSpecificCourt(0);
+        }else if(SouthSelected){
+            setDefaultSpecificCourt(1);
+        }else if(WestSelected){
+            setDefaultSpecificCourt(2);
+        }else if(EastSelected){
+            setDefaultSpecificCourt(3);
+        }else if(PondSelected){
+            setDefaultSpecificCourt(4);
+        }else if(MillSelected){
+            setDefaultSpecificCourt(5);
         }
         else{setDefaultAll();}
         
@@ -122,8 +132,17 @@ public class MainMenuController implements Initializable {
             
             if(NorthSelected){
                 arrayListBooking = c.getCourtBookings("Pista 1", date);
-            }
-            else{
+            }else if(SouthSelected){
+                arrayListBooking = c.getCourtBookings("Pista 2", date);
+            }else if(WestSelected){
+                arrayListBooking = c.getCourtBookings("Pista 3", date);
+            }else if(EastSelected){
+                arrayListBooking = c.getCourtBookings("Pista 4", date);
+            }else if(PondSelected){
+                arrayListBooking = c.getCourtBookings("Pista 5", date);
+            }else if(MillSelected){
+                arrayListBooking = c.getCourtBookings("Pista 6", date);
+            }else{
                 arrayListBooking = c.getForDayBookings(date);
             }
             
