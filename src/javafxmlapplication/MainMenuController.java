@@ -111,8 +111,8 @@ public class MainMenuController implements Initializable {
         
         availableHours.clear();
         arrayListBooking.clear();
-
-         if(NorthSelected){
+        
+        if(NorthSelected){
             setDefaultSpecificCourt(0);
         }else if(SouthSelected){
             setDefaultSpecificCourt(1);
@@ -124,25 +124,15 @@ public class MainMenuController implements Initializable {
             setDefaultSpecificCourt(4);
         }else if(MillSelected){
             setDefaultSpecificCourt(5);
-        }
-        else{setDefaultAll();}
+        }else{setDefaultAll();}
         
         try{
             Club c = Club.getInstance();
             
             if(NorthSelected){
                 arrayListBooking = c.getCourtBookings("Pista 1", date);
-            }else if(SouthSelected){
-                arrayListBooking = c.getCourtBookings("Pista 2", date);
-            }else if(WestSelected){
-                arrayListBooking = c.getCourtBookings("Pista 3", date);
-            }else if(EastSelected){
-                arrayListBooking = c.getCourtBookings("Pista 4", date);
-            }else if(PondSelected){
-                arrayListBooking = c.getCourtBookings("Pista 5", date);
-            }else if(MillSelected){
-                arrayListBooking = c.getCourtBookings("Pista 6", date);
-            }else{
+            }
+            else{
                 arrayListBooking = c.getForDayBookings(date);
             }
             
@@ -364,7 +354,7 @@ public class MainMenuController implements Initializable {
                 return false;
             }
             else{
-                for(int i = 0; i < bookingLists.size() - 2; i++){
+                for(int i = 0; i < bookingLists.size(); i++){
                     Booking first = bookingLists.get(i);
                     Booking second =  bookingLists.get(i+1);
                     Booking third = bookingLists.get(i+2);
@@ -374,7 +364,7 @@ public class MainMenuController implements Initializable {
                     first.getCourt().equals(second.getCourt()) && first.getCourt().equals(third.getCourt())
                     && first.getFromTime().plusHours(1).equals(second.getFromTime())
                     && first.getFromTime().plusHours(2).equals(third.getFromTime())){
-                        bookingStatus = "Can't make more than 2 bookings back to back.";
+                        //bookingStatus = "Can't make more than 2 bookings back to back.";
                         return true;
                     }
                 }
@@ -399,33 +389,37 @@ public class MainMenuController implements Initializable {
         catch(Exception e){}
         return false;
     }
-    
+
     @FXML
     private void onMakeReservation(ActionEvent event) {
         try{
+            bookingStatus = "";
             Club c = Club.getInstance();
             Court selected = c.getCourt(TableList1.getSelectionModel().getSelectedItem().getCourt());
             LocalTime t = TableList1.getSelectionModel().getSelectedItem().getTime();
             LocalDateTime datetime = LocalDateTime.of(date, t);
+           
             
             if(datetime != null && t != null && selected != null){
-                System.out.println(datetime.compareTo(LocalDateTime.now()));
+                
                 if(datetime.compareTo(LocalDateTime.now()) > 0){
                     Booking b = c.registerBooking(datetime, date, t, false, selected , memberLoggedIn);
                     
                     if(memberLoggedIn.getSvc() == -1 && memberLoggedIn.getCreditCard().equals("")){ b.setPaid(false); }
-                    else{b.setPaid(true); }
-                    
+                    else{b.setPaid(true);}
+
                     boolean isBackToBack = isBackToBack(b);
                     boolean existsOnAnotherCourt = existsOnAnotherCourt(b);
-                    System.out.println(isBackToBack && existsOnAnotherCourt(b));
+                    System.out.println(isBackToBack && existsOnAnotherCourt);
                     if(isBackToBack || existsOnAnotherCourt){System.out.println("booking removed"); c.removeBooking(b);}
                     else{
                         bookingStatus = "Booking made successfully!";
                         bookingList.add(b);                    
-                    }             
+                    }
                 }
-                else{bookingStatus = "Cannot make reservation in the past!";}
+                else{
+                    bookingStatus = "Cannot make a reservation in the past!";
+                }
             }
         }
         catch(Exception e){}
