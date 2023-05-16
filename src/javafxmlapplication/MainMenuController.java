@@ -111,9 +111,20 @@ public class MainMenuController implements Initializable {
         
         availableHours.clear();
         arrayListBooking.clear();
-
+        
         if(NorthSelected){
             setDefaultSpecificCourt(0);
+        
+        }else if(SouthSelected){
+            setDefaultSpecificCourt(1);
+        }else if(WestSelected){
+            setDefaultSpecificCourt(2);
+        }else if(EastSelected){
+            setDefaultSpecificCourt(3);
+        }else if(PondSelected){
+            setDefaultSpecificCourt(4);
+        }else if(MillSelected){
+            setDefaultSpecificCourt(5);
         }
         else{setDefaultAll();}
         
@@ -122,6 +133,16 @@ public class MainMenuController implements Initializable {
             
             if(NorthSelected){
                 arrayListBooking = c.getCourtBookings("Pista 1", date);
+            }else if(SouthSelected){
+                arrayListBooking = c.getCourtBookings("Pista 2", date);
+            }else if(WestSelected){
+                arrayListBooking = c.getCourtBookings("Pista 3", date);
+            }else if(EastSelected){
+                arrayListBooking = c.getCourtBookings("Pista 4", date);
+            }else if(PondSelected){
+                arrayListBooking = c.getCourtBookings("Pista 5", date);
+            }else if(MillSelected){
+                arrayListBooking = c.getCourtBookings("Pista 6", date);
             }
             else{
                 arrayListBooking = c.getForDayBookings(date);
@@ -346,7 +367,7 @@ public class MainMenuController implements Initializable {
                 return false;
             }
             else{
-                for(int i = 0; i < bookingLists.size() - 2; i++){
+                for(int i = 0; i < bookingLists.size(); i++){
                     Booking first = bookingLists.get(i);
                     Booking second =  bookingLists.get(i+1);
                     Booking third = bookingLists.get(i+2);
@@ -356,44 +377,86 @@ public class MainMenuController implements Initializable {
                     first.getCourt().equals(second.getCourt()) && first.getCourt().equals(third.getCourt())
                     && first.getFromTime().plusHours(1).equals(second.getFromTime())
                     && first.getFromTime().plusHours(2).equals(third.getFromTime())){
-                        bookingStatus = "Can't make more than 2 bookings back to back.";
+                        //bookingStatus = "Can't make more than 2 bookings back to back.";
                         return true;
                     }
                 }
+              
+ 
             }
         }
         catch(Exception e){}
         return false;
     }
     
+    public boolean checkIfOtherCourt(Booking b, int i, List<Booking> bookList, LocalTime t){
+        if(bookList.get(i).getMadeForDay().compareTo(date) == 0 && bookList.get(i).getFromTime().compareTo(t) == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+ 
+    //hacer que no se pueda reservar a la misma hora en dos pistas distintas
+    //arreglar que no se pueda reservar mas de dos horas la misma pista, cuando cambiamos de pista y volvemos a otra y reservamos la 3a hora nos
+    //deja hacerlo
+    //"booking removed"?
     @FXML
     private void onMakeReservation(ActionEvent event) {
         try{
+            bookingStatus = "";
             Club c = Club.getInstance();
             Court selected = c.getCourt(TableList1.getSelectionModel().getSelectedItem().getCourt());
             LocalTime t = TableList1.getSelectionModel().getSelectedItem().getTime();
             LocalDateTime datetime = LocalDateTime.of(date, t);
+           
             
             if(datetime != null && t != null && selected != null){
+                
                 System.out.println(datetime.compareTo(LocalDateTime.now()));
                 if(datetime.compareTo(LocalDateTime.now()) > 0){
-                    Booking b = c.registerBooking(datetime, date, t, false, selected , memberLoggedIn);
+                    
+                    if(!c.getUserBookings(memberLoggedIn.getNickName()).isEmpty()){
+                        List<Booking> bookList =  c.getUserBookings(memberLoggedIn.getNickName());
+                        for(int i = 0; i < c.getUserBookings(memberLoggedIn.getNickName()).size(); i++){ 
+                            if(bookList.get(i).getMadeForDay().compareTo(date) == 0 && bookList.get(i).getFromTime().compareTo(t) == 0){
+                              bookingStatus = "Cannot make a reservation!";
+                               i = c.getUserBookings(memberLoggedIn.getNickName()).size();
+                            
+                            }  
+                        }
+                    }
+                    if(bookingStatus.equals("Cannot make a reservation!")){
+                        System.out.println("done");
+                    }else{
+                   Booking b = c.registerBooking(datetime, date, t, false, selected , memberLoggedIn);
+                    
                     
                     if(memberLoggedIn.getSvc() == -1 && memberLoggedIn.getCreditCard().equals("")){ b.setPaid(false); }
                     else{b.setPaid(true); }
                     
                     boolean isIt = isBackToBack(b);
+                    if(c.getUserBookings(memberLoggedIn.getNickName()).isEmpty()){
+                        bookingStatus = "Booking made successfully!";
+                        bookingList.add(b);
+                    }
+                    
                     System.out.println(isIt);
-                    if(isIt){System.out.println("booking removed"); c.removeBooking(b);}
+                    if(isIt){
+                        bookingStatus = "Can't make more than 2 bookings back to back.";
+                        System.out.println("booking removed");
+                        c.removeBooking(b);}
                     else{
                         bookingStatus = "Booking made successfully!";
                         bookingList.add(b);                    
-                    }             
+                    }
                 }
-                else{
+                }else{
                     bookingStatus = "Cannot make a reservation in the past!";
                 }
             }
+            
+            
         }
         catch(Exception e){}
         
