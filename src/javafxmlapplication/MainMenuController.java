@@ -114,7 +114,6 @@ public class MainMenuController implements Initializable {
         
         if(NorthSelected){
             setDefaultSpecificCourt(0);
-        
         }else if(SouthSelected){
             setDefaultSpecificCourt(1);
         }else if(WestSelected){
@@ -125,24 +124,13 @@ public class MainMenuController implements Initializable {
             setDefaultSpecificCourt(4);
         }else if(MillSelected){
             setDefaultSpecificCourt(5);
-        }
-        else{setDefaultAll();}
+        }else{setDefaultAll();}
         
         try{
             Club c = Club.getInstance();
             
             if(NorthSelected){
                 arrayListBooking = c.getCourtBookings("Pista 1", date);
-            }else if(SouthSelected){
-                arrayListBooking = c.getCourtBookings("Pista 2", date);
-            }else if(WestSelected){
-                arrayListBooking = c.getCourtBookings("Pista 3", date);
-            }else if(EastSelected){
-                arrayListBooking = c.getCourtBookings("Pista 4", date);
-            }else if(PondSelected){
-                arrayListBooking = c.getCourtBookings("Pista 5", date);
-            }else if(MillSelected){
-                arrayListBooking = c.getCourtBookings("Pista 6", date);
             }
             else{
                 arrayListBooking = c.getForDayBookings(date);
@@ -160,8 +148,7 @@ public class MainMenuController implements Initializable {
         catch(Exception e){}
     }
     
-    
-     @FXML
+    @FXML
     private void onClickNorthCourt() {
         NorthSelected = true;
         SouthSelected  = false;
@@ -381,26 +368,28 @@ public class MainMenuController implements Initializable {
                         return true;
                     }
                 }
-              
- 
             }
         }
         catch(Exception e){}
         return false;
     }
     
-    public boolean checkIfOtherCourt(Booking b, int i, List<Booking> bookList, LocalTime t){
-        if(bookList.get(i).getMadeForDay().compareTo(date) == 0 && bookList.get(i).getFromTime().compareTo(t) == 0){
-            return true;
-        }else{
-            return false;
+    public boolean existsOnAnotherCourt(Booking b){
+        try{
+            Club c = Club.getInstance();
+            List<Booking> bookingLists = c.getUserBookings(memberLoggedIn.getNickName());
+            for(int i = 0; i < bookingLists.size(); i++){
+                if(b.getBookingDate().equals(bookingLists.get(i).getBookingDate())
+                && !b.getCourt().equals(bookingLists.get(i).getCourt())){
+                    bookingStatus = "Can't book 2 courts at the same hour!";
+                    return true;
+                }
+            }
         }
+        catch(Exception e){}
+        return false;
     }
- 
-    //hacer que no se pueda reservar a la misma hora en dos pistas distintas
-    //arreglar que no se pueda reservar mas de dos horas la misma pista, cuando cambiamos de pista y volvemos a otra y reservamos la 3a hora nos
-    //deja hacerlo
-    //"booking removed"?
+
     @FXML
     private void onMakeReservation(ActionEvent event) {
         try{
@@ -413,50 +402,25 @@ public class MainMenuController implements Initializable {
             
             if(datetime != null && t != null && selected != null){
                 
-                System.out.println(datetime.compareTo(LocalDateTime.now()));
                 if(datetime.compareTo(LocalDateTime.now()) > 0){
-                    
-                    if(!c.getUserBookings(memberLoggedIn.getNickName()).isEmpty()){
-                        List<Booking> bookList =  c.getUserBookings(memberLoggedIn.getNickName());
-                        for(int i = 0; i < c.getUserBookings(memberLoggedIn.getNickName()).size(); i++){ 
-                            if(bookList.get(i).getMadeForDay().compareTo(date) == 0 && bookList.get(i).getFromTime().compareTo(t) == 0){
-                              bookingStatus = "Cannot make a reservation!";
-                               i = c.getUserBookings(memberLoggedIn.getNickName()).size();
-                            
-                            }  
-                        }
-                    }
-                    if(bookingStatus.equals("Cannot make a reservation!")){
-                        System.out.println("done");
-                    }else{
-                   Booking b = c.registerBooking(datetime, date, t, false, selected , memberLoggedIn);
-                    
+                    Booking b = c.registerBooking(datetime, date, t, false, selected , memberLoggedIn);
                     
                     if(memberLoggedIn.getSvc() == -1 && memberLoggedIn.getCreditCard().equals("")){ b.setPaid(false); }
-                    else{b.setPaid(true); }
-                    
-                    boolean isIt = isBackToBack(b);
-                    if(c.getUserBookings(memberLoggedIn.getNickName()).isEmpty()){
-                        bookingStatus = "Booking made successfully!";
-                        bookingList.add(b);
-                    }
-                    
-                    System.out.println(isIt);
-                    if(isIt){
-                        bookingStatus = "Can't make more than 2 bookings back to back.";
-                        System.out.println("booking removed");
-                        c.removeBooking(b);}
+                    else{b.setPaid(true);}
+
+                    boolean isBackToBack = isBackToBack(b);
+                    boolean existsOnAnotherCourt = existsOnAnotherCourt(b);
+                    System.out.println(isBackToBack && existsOnAnotherCourt);
+                    if(isBackToBack || existsOnAnotherCourt){System.out.println("booking removed"); c.removeBooking(b);}
                     else{
                         bookingStatus = "Booking made successfully!";
                         bookingList.add(b);                    
                     }
                 }
-                }else{
+                else{
                     bookingStatus = "Cannot make a reservation in the past!";
                 }
             }
-            
-            
         }
         catch(Exception e){}
         
@@ -480,8 +444,6 @@ public class MainMenuController implements Initializable {
         c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
         }catch(IOException e){}
     }
-
-    
 
     public class FreeSlots {
 
