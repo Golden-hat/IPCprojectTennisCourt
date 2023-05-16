@@ -451,8 +451,6 @@ public class MainMenuController implements Initializable {
         }catch(IOException e){}
     }
 
-    
-
     public class FreeSlots {
 
         public String getHour() {
