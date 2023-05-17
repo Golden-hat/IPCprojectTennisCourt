@@ -291,7 +291,10 @@ public class MainMenuController implements Initializable {
                     LocalTime n = LocalTime.of(Integer.parseInt(hours[j].substring(0, hours[j].length()-3)),0);
                     FreeSlots f = new FreeSlots(hours[j], listCourts.get(i).getName(), n);
                     
-                    if(n.compareTo(LocalTime.now()) > 0 && LocalDate.now().compareTo(date) <= 0){availableHours.add(f);}
+                    if(LocalDate.now().compareTo(date) <= 0){
+                        if(LocalDate.now().compareTo(date) == 0 && LocalTime.now().compareTo(n) < 0) availableHours.add(f);
+                        else if (LocalDate.now().compareTo(date) < 0){availableHours.add(f);}
+                    }
                     
                     for(int k = 0; k < arrayListBooking.size(); k++){
                         if(arrayListBooking.get(k).getCourt().getName().equals(listCourts.get(i).getName()) &&
@@ -324,7 +327,10 @@ public class MainMenuController implements Initializable {
                     LocalTime n = LocalTime.of(Integer.parseInt(hours[j].substring(0, hours[j].length()-3)),0);
                     FreeSlots f = new FreeSlots(hours[j], listCourts.get(i).getName(), n);
                     
-                    if(n.compareTo(LocalTime.now()) > 0 && LocalDate.now().compareTo(date) <= 0){availableHours.add(f);}
+                    if(LocalDate.now().compareTo(date) <= 0){
+                        if(LocalDate.now().compareTo(date) == 0 && LocalTime.now().compareTo(n) < 0) availableHours.add(f);
+                        else if (LocalDate.now().compareTo(date) < 0){availableHours.add(f);}
+                    }
                     
                     for(int k = 0; k < arrayListBooking.size(); k++){
                         if(arrayListBooking.get(k).getCourt().getName().equals(listCourts.get(i).getName()) &&
