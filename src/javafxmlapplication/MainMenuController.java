@@ -6,6 +6,7 @@ package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -108,6 +110,8 @@ public class MainMenuController implements Initializable {
         courtSelected.setText(selectedCourtText);
         DatePrompt.setText(date.toString());
         ErrorBooking.setText(bookingStatus);
+        TableList.setPlaceholder(new Label("No reservation has been made yet today!"));
+        TableList1.setPlaceholder(new Label("No available bookings here..."));
         
         availableHours.clear();
         arrayListBooking.clear();
@@ -287,7 +291,7 @@ public class MainMenuController implements Initializable {
                     LocalTime n = LocalTime.of(Integer.parseInt(hours[j].substring(0, hours[j].length()-3)),0);
                     FreeSlots f = new FreeSlots(hours[j], listCourts.get(i).getName(), n);
                     
-                    availableHours.add(f);
+                    if(n.compareTo(LocalTime.now()) > 0 && LocalDate.now().compareTo(date) <= 0){availableHours.add(f);}
                     
                     for(int k = 0; k < arrayListBooking.size(); k++){
                         if(arrayListBooking.get(k).getCourt().getName().equals(listCourts.get(i).getName()) &&
@@ -320,7 +324,7 @@ public class MainMenuController implements Initializable {
                     LocalTime n = LocalTime.of(Integer.parseInt(hours[j].substring(0, hours[j].length()-3)),0);
                     FreeSlots f = new FreeSlots(hours[j], listCourts.get(i).getName(), n);
                     
-                    availableHours.add(f);
+                    if(n.compareTo(LocalTime.now()) > 0 && LocalDate.now().compareTo(date) <= 0){availableHours.add(f);}
                     
                     for(int k = 0; k < arrayListBooking.size(); k++){
                         if(arrayListBooking.get(k).getCourt().getName().equals(listCourts.get(i).getName()) &&
@@ -398,7 +402,6 @@ public class MainMenuController implements Initializable {
             Court selected = c.getCourt(TableList1.getSelectionModel().getSelectedItem().getCourt());
             LocalTime t = TableList1.getSelectionModel().getSelectedItem().getTime();
             LocalDateTime datetime = LocalDateTime.of(date, t);
-           
             
             if(datetime != null && t != null && selected != null){
                 
