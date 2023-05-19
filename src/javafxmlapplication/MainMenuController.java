@@ -136,10 +136,25 @@ public class MainMenuController implements Initializable {
             if(NorthSelected){
                 arrayListBooking = c.getCourtBookings("Pista 1", date);
             }
+            else if(SouthSelected){
+                arrayListBooking = c.getCourtBookings("Pista 2", date);
+            }
+            else if(WestSelected){
+                arrayListBooking = c.getCourtBookings("Pista 3", date);
+            }
+            else if(EastSelected){
+                arrayListBooking = c.getCourtBookings("Pista 4", date);
+            }
+            else if(PondSelected){
+                arrayListBooking = c.getCourtBookings("Pista 5", date);
+            }
+            else if(MillSelected){
+                arrayListBooking = c.getCourtBookings("Pista 6", date);
+            }
             else{
                 arrayListBooking = c.getForDayBookings(date);
             }
-            
+             
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             
             // DateCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getBookingDate().toString().substring(0, personaFila.getValue().getBookingDate().toString().length() - 6)));
@@ -374,7 +389,7 @@ public class MainMenuController implements Initializable {
                     first.getCourt().equals(second.getCourt()) && first.getCourt().equals(third.getCourt())
                     && first.getFromTime().plusHours(1).equals(second.getFromTime())
                     && first.getFromTime().plusHours(2).equals(third.getFromTime())){
-                        //bookingStatus = "Can't make more than 2 bookings back to back.";
+                        bookingStatus = "Can't make more than 2 bookings back to back.";
                         return true;
                     }
                 }
