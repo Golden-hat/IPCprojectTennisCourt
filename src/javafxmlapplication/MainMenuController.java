@@ -139,7 +139,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onClickNorthCourt() {
         bookingList.clear();
-        setDefaultSpecificCourt(0);
         selectedCourtText = "North Court";
         try{
             Club c = Club.getInstance();
@@ -153,16 +152,16 @@ public class MainMenuController implements Initializable {
             NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
+        setDefaultSpecificCourt(0);        
     }
     
     @FXML
     private void onClickSouthCourt(ActionEvent event) {
         bookingList.clear();
-        setDefaultSpecificCourt(1);
-        selectedCourtText = "North Court";
+        selectedCourtText = "South Court";
         try{
             Club c = Club.getInstance();
-            arrayListBooking = c.getCourtBookings("Pista 1", date);
+            arrayListBooking = c.getCourtBookings("Pista 2", date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
             
@@ -172,12 +171,12 @@ public class MainMenuController implements Initializable {
             NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
+        setDefaultSpecificCourt(1);
     }
     
     @FXML
     private void onClickMillCourt(ActionEvent event) {
         bookingList.clear();
-        setDefaultSpecificCourt(5);
         selectedCourtText = "Mill Court";
         try{
             Club c = Club.getInstance();
@@ -191,12 +190,12 @@ public class MainMenuController implements Initializable {
             NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
+        setDefaultSpecificCourt(5);
     }
 
     @FXML
     private void onClickWestCourt(ActionEvent event) {
         bookingList.clear();
-        setDefaultSpecificCourt(3);
         selectedCourtText = "West Court";
         try{
             Club c = Club.getInstance();
@@ -210,12 +209,12 @@ public class MainMenuController implements Initializable {
             NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
+        setDefaultSpecificCourt(3);
     }
 
     @FXML
     private void onClickEastCourt(ActionEvent event) {
         bookingList.clear();
-        setDefaultSpecificCourt(2);
         selectedCourtText = "East Court";
         try{
             Club c = Club.getInstance();
@@ -229,12 +228,12 @@ public class MainMenuController implements Initializable {
             NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
+        setDefaultSpecificCourt(2);
     }
 
     @FXML
     private void onClickPondCourt(ActionEvent event) {
         bookingList.clear();
-        setDefaultSpecificCourt(4);
         selectedCourtText = "Pond Court";
         try{
             Club c = Club.getInstance();
@@ -248,12 +247,12 @@ public class MainMenuController implements Initializable {
             NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
+        setDefaultSpecificCourt(4);
     }
     
     @FXML
     private void onViewAllCourts() {
         bookingList.clear();
-        setDefaultAll();
         selectedCourtText = "All Courts";
         try{
             Club c = Club.getInstance();
@@ -267,6 +266,7 @@ public class MainMenuController implements Initializable {
             NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
+        setDefaultAll();
     }
 
     @FXML
@@ -334,10 +334,10 @@ public class MainMenuController implements Initializable {
             }
         }catch(Exception e){}
         
+        TableList1.setItems(availableHours);
+        
         HourCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getHour()));
         CourtCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt()));
-        
-        TableList1.setItems(availableHours);
     }
     
     public void setDefaultSpecificCourt(int i){
@@ -369,6 +369,11 @@ public class MainMenuController implements Initializable {
                     }
                 }
         }catch(Exception e){}
+        
+        TableList1.setItems(availableHours);
+        
+        HourCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getHour()));
+        CourtCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt()));
     }
     
     @FXML
@@ -455,6 +460,28 @@ public class MainMenuController implements Initializable {
                     bookingStatus = "Cannot make a reservation in the past!";
                     ErrorBooking.setText(bookingStatus);
                 }
+            }
+            switch (selectedCourtText){
+                case "North Court":
+                    setDefaultSpecificCourt(0);
+                break;
+                case "South Court":
+                    setDefaultSpecificCourt(1);
+                break;
+                case "West Court":
+                    setDefaultSpecificCourt(2);
+                break;
+                case "East Court":
+                    setDefaultSpecificCourt(3);
+                break;
+                case "Pond Court":
+                    setDefaultSpecificCourt(4);
+                break;
+                case "Mill Court":
+                    setDefaultSpecificCourt(5);
+                break;
+                case "All Courts":
+                    setDefaultAll();
             }
         }
         catch(Exception e){}
