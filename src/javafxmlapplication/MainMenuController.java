@@ -113,148 +113,160 @@ public class MainMenuController implements Initializable {
         TableList.setPlaceholder(new Label("No reservation has been made yet today!"));
         TableList1.setPlaceholder(new Label("No available bookings here..."));
         
-        availableHours.clear();
-        arrayListBooking.clear();
+        TableList1.setItems(availableHours);
         
-        if(NorthSelected){
-            setDefaultSpecificCourt(0);
-        }else if(SouthSelected){
-            setDefaultSpecificCourt(1);
-        }else if(WestSelected){
-            setDefaultSpecificCourt(2);
-        }else if(EastSelected){
-            setDefaultSpecificCourt(3);
-        }else if(PondSelected){
-            setDefaultSpecificCourt(4);
-        }else if(MillSelected){
-            setDefaultSpecificCourt(5);
-        }else{setDefaultAll();}
+        HourCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getHour()));
+        CourtCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt()));
         
         try{
             Club c = Club.getInstance();
-            
-            if(NorthSelected){
-                arrayListBooking = c.getCourtBookings("Pista 1", date);
-            }
-            else if(SouthSelected){
-                arrayListBooking = c.getCourtBookings("Pista 2", date);
-            }
-            else if(WestSelected){
-                arrayListBooking = c.getCourtBookings("Pista 3", date);
-            }
-            else if(EastSelected){
-                arrayListBooking = c.getCourtBookings("Pista 4", date);
-            }
-            else if(PondSelected){
-                arrayListBooking = c.getCourtBookings("Pista 5", date);
-            }
-            else if(MillSelected){
-                arrayListBooking = c.getCourtBookings("Pista 6", date);
-            }
-            else{
-                arrayListBooking = c.getForDayBookings(date);
-            }
-             
-            bookingList = FXCollections.observableArrayList(arrayListBooking);
-            
-            // DateCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getBookingDate().toString().substring(0, personaFila.getValue().getBookingDate().toString().length() - 6)));
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
-            TableList.setItems(bookingList);
-        }
-        catch(Exception e){}
+            arrayListBooking = c.getForDayBookings(date);
+        }catch(Exception e){}
+        
+        
+        bookingList = FXCollections.observableArrayList(arrayListBooking);
+        TableList.setItems(bookingList);
+        
+        // DateCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getBookingDate().toString().substring(0, personaFila.getValue().getBookingDate().toString().length() - 6)));
+        HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+        PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+        CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+        NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        
+        setDefaultAll();
     }
     
     @FXML
     private void onClickNorthCourt() {
-        NorthSelected = true;
-        SouthSelected  = false;
-        WestSelected  = false;
-        EastSelected = false;
-        PondSelected  = false; 
-        MillSelected = false;
+        bookingList.clear();
+        setDefaultSpecificCourt(0);
         selectedCourtText = "North Court";
-        JavaFXMLApplication c = new JavaFXMLApplication();
         try{
-            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
+            Club c = Club.getInstance();
+            arrayListBooking = c.getCourtBookings("Pista 1", date);
+            bookingList = FXCollections.observableArrayList(arrayListBooking);
+            TableList.setItems(bookingList);
+            
+            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        }catch(Exception e){}
+        courtSelected.setText(selectedCourtText);
     }
     
     @FXML
     private void onClickSouthCourt(ActionEvent event) {
-        SouthSelected = true;
-        NorthSelected  = false;
-        WestSelected  = false;
-        EastSelected = false;
-        PondSelected  = false; 
-        MillSelected = false;
-        selectedCourtText = "South Court";
-        JavaFXMLApplication c = new JavaFXMLApplication();
+        bookingList.clear();
+        setDefaultSpecificCourt(1);
+        selectedCourtText = "North Court";
         try{
-            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
+            Club c = Club.getInstance();
+            arrayListBooking = c.getCourtBookings("Pista 1", date);
+            bookingList = FXCollections.observableArrayList(arrayListBooking);
+            TableList.setItems(bookingList);
+            
+            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        }catch(Exception e){}
+        courtSelected.setText(selectedCourtText);
     }
     
     @FXML
     private void onClickMillCourt(ActionEvent event) {
-        MillSelected = true;
-        SouthSelected = false;
-        NorthSelected  = false;
-        WestSelected  = false;
-        EastSelected = false;
-        PondSelected  = false; 
+        bookingList.clear();
+        setDefaultSpecificCourt(5);
         selectedCourtText = "Mill Court";
-        JavaFXMLApplication c = new JavaFXMLApplication();
         try{
-            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
+            Club c = Club.getInstance();
+            arrayListBooking = c.getCourtBookings("Pista 6", date);
+            bookingList = FXCollections.observableArrayList(arrayListBooking);
+            TableList.setItems(bookingList);
+            
+            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        }catch(Exception e){}
+        courtSelected.setText(selectedCourtText);
     }
 
     @FXML
     private void onClickWestCourt(ActionEvent event) {
-        WestSelected = true;
-        NorthSelected  = false;
-        SouthSelected  = false;
-        EastSelected = false;
-        PondSelected  = false; 
-        MillSelected = false;
+        bookingList.clear();
+        setDefaultSpecificCourt(3);
         selectedCourtText = "West Court";
-        JavaFXMLApplication c = new JavaFXMLApplication();
         try{
-            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
+            Club c = Club.getInstance();
+            arrayListBooking = c.getCourtBookings("Pista 4", date);
+            bookingList = FXCollections.observableArrayList(arrayListBooking);
+            TableList.setItems(bookingList);
+            
+            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        }catch(Exception e){}
+        courtSelected.setText(selectedCourtText);
     }
 
     @FXML
     private void onClickEastCourt(ActionEvent event) {
-        EastSelected = true;
-        NorthSelected  = false;
-        SouthSelected  = false;
-        WestSelected  = false;
-        PondSelected  = false; 
-        MillSelected = false;
+        bookingList.clear();
+        setDefaultSpecificCourt(2);
         selectedCourtText = "East Court";
-        JavaFXMLApplication c = new JavaFXMLApplication();
         try{
-            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
+            Club c = Club.getInstance();
+            arrayListBooking = c.getCourtBookings("Pista 3", date);
+            bookingList = FXCollections.observableArrayList(arrayListBooking);
+            TableList.setItems(bookingList);
+            
+            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        }catch(Exception e){}
+        courtSelected.setText(selectedCourtText);
     }
 
     @FXML
     private void onClickPondCourt(ActionEvent event) {
-        PondSelected = true;
-        NorthSelected  = false;
-        SouthSelected  = false;
-        WestSelected  = false;
-        EastSelected = false;
-        MillSelected = false;
+        bookingList.clear();
+        setDefaultSpecificCourt(4);
         selectedCourtText = "Pond Court";
-        JavaFXMLApplication c = new JavaFXMLApplication();
         try{
-            c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
+            Club c = Club.getInstance();
+            arrayListBooking = c.getCourtBookings("Pista 5", date);
+            bookingList = FXCollections.observableArrayList(arrayListBooking);
+            TableList.setItems(bookingList);
+            
+            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        }catch(Exception e){}
+        courtSelected.setText(selectedCourtText);
+    }
+    
+    @FXML
+    private void onViewAllCourts() {
+        bookingList.clear();
+        setDefaultAll();
+        selectedCourtText = "All Courts";
+        try{
+            Club c = Club.getInstance();
+            arrayListBooking = c.getForDayBookings(date);
+            bookingList = FXCollections.observableArrayList(arrayListBooking);
+            TableList.setItems(bookingList);
+            
+            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
+            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
+            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
+            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
+        }catch(Exception e){}
+        courtSelected.setText(selectedCourtText);
     }
 
     @FXML
@@ -291,6 +303,7 @@ public class MainMenuController implements Initializable {
     }
     
     public void setDefaultAll(){
+        availableHours.clear();
         
         String[] hours = {"9:00","10:00","11:00",
             "12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00",
@@ -328,6 +341,7 @@ public class MainMenuController implements Initializable {
     }
     
     public void setDefaultSpecificCourt(int i){
+        availableHours.clear();
         
         String[] hours = {"9:00","10:00","11:00",
             "12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00",
@@ -355,20 +369,13 @@ public class MainMenuController implements Initializable {
                     }
                 }
         }catch(Exception e){}
-        
-        HourCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getHour()));
-        CourtCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt()));
-        
-        TableList1.setItems(availableHours);
     }
     
     @FXML
     private void onDateSelected(ActionEvent event) {
         date = dateSelector.getValue();
-        JavaFXMLApplication c = new JavaFXMLApplication();
-        try{
-        c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
+        DatePrompt.setText(date.toString());
+        onViewAllCourts();
     }
     
     public boolean isBackToBack(Booking b){
@@ -390,6 +397,7 @@ public class MainMenuController implements Initializable {
                     && first.getFromTime().plusHours(1).equals(second.getFromTime())
                     && first.getFromTime().plusHours(2).equals(third.getFromTime())){
                         bookingStatus = "Can't make more than 2 bookings back to back.";
+                        ErrorBooking.setText(bookingStatus);
                         return true;
                     }
                 }
@@ -407,6 +415,7 @@ public class MainMenuController implements Initializable {
                 if(b.getBookingDate().equals(bookingLists.get(i).getBookingDate())
                 && !b.getCourt().equals(bookingLists.get(i).getCourt())){
                     bookingStatus = "Can't book 2 courts at the same hour!";
+                    ErrorBooking.setText(bookingStatus);
                     return true;
                 }
             }
@@ -438,35 +447,17 @@ public class MainMenuController implements Initializable {
                     if(isBackToBack || existsOnAnotherCourt){System.out.println("booking removed"); c.removeBooking(b);}
                     else{
                         bookingStatus = "Booking made successfully!";
+                        ErrorBooking.setText(bookingStatus);
                         bookingList.add(b);                    
                     }
                 }
                 else{
                     bookingStatus = "Cannot make a reservation in the past!";
+                    ErrorBooking.setText(bookingStatus);
                 }
             }
         }
         catch(Exception e){}
-        
-        JavaFXMLApplication c = new JavaFXMLApplication();
-        try{
-        c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
-    }
-
-    @FXML
-    private void onViewAllCourts() {
-        NorthSelected  = false;
-        SouthSelected  = false;
-        WestSelected  = false;
-        EastSelected = false;
-        PondSelected  = false; 
-        MillSelected = false;
-        selectedCourtText = "All Courts";
-        JavaFXMLApplication c = new JavaFXMLApplication();
-        try{
-        c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-        }catch(IOException e){}
     }
 
     public class FreeSlots {
@@ -498,12 +489,16 @@ public class MainMenuController implements Initializable {
     private void onDayplus1() {
         date = date.plusDays(1);
         dateSelector.setValue(date);
+        DatePrompt.setText(date.toString());
+        onViewAllCourts();
     }
 
     @FXML
     private void onDayminus1() {
         date = date.minusDays(1);
         dateSelector.setValue(date);
+        DatePrompt.setText(date.toString());
+        onViewAllCourts();
     }
     
 }

@@ -26,18 +26,12 @@ public class JavaFXMLApplication extends Application {
     public static Image icon = new Image("img/Avatar_icon_green.svg.png");
     public static LocalDate date = LocalDate.now();
     
-    public static boolean NorthSelected = false;
-    public static boolean SouthSelected = false;
-    public static boolean WestSelected = false;
-    public static boolean EastSelected = false;
-    public static boolean PondSelected = false;
-    public static boolean MillSelected = false;
     public static String selectedCourtText = "All Courts";
     public static String bookingStatus = "";
     
     @Override
     public void start(Stage stage) throws Exception {
-        try{Club c = Club.getInstance(); c.setInitialData();}catch(Exception e){}
+        // try{Club c = Club.getInstance(); c.setInitialData();}catch(Exception e){}
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
         FXMLLoader fxmlLoader = new FXMLLoader();
