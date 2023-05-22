@@ -96,13 +96,17 @@ public class MainMenuController implements Initializable {
     private Text DatePrompt;
     @FXML
     private Text ErrorBooking;
+    @FXML
+    private Button myReservationsButton;
     
     public List<Booking> arrayListBooking = new ArrayList<>();
     public ObservableList<Booking> bookingList = FXCollections.observableArrayList();
     public ObservableList<FreeSlots> availableHours = FXCollections.observableArrayList();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        
         usernameFieldBanner.setText("@"+memberLoggedIn.getNickName());
         nameSurnameFieldBanner.setText(memberLoggedIn.getName()+" "+memberLoggedIn.getSurname());
         userPictureBanner.setImage(memberLoggedIn.getImage());
@@ -487,6 +491,19 @@ public class MainMenuController implements Initializable {
         catch(Exception e){}
     }
 
+    @FXML
+    private void onMyReservations(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("myReservations.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        myReservations = new Stage();
+        myReservations.setTitle("Main Menu");
+        myReservations.setResizable(true);
+        myReservations.setScene(scene);
+        myReservations.centerOnScreen();
+        myReservations.initModality(Modality.APPLICATION_MODAL);
+        myReservations.show();
+    }
+    
     public class FreeSlots {
 
         public String getHour() {

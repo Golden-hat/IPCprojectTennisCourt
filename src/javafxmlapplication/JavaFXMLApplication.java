@@ -22,6 +22,7 @@ public class JavaFXMLApplication extends Application {
     public static Stage signup;
     public static Stage mainScreen;
     public static Stage checkData;
+    public static Stage myReservations;
     public static Member memberLoggedIn;
     public static Image icon = new Image("img/Avatar_icon_green.svg.png");
     public static LocalDate date = LocalDate.now();
@@ -47,6 +48,7 @@ public class JavaFXMLApplication extends Application {
         login.setResizable(true);
         login.setTitle("Login");
         login.setScene(scene);
+
         login.show();
     }
     
@@ -62,7 +64,6 @@ public class JavaFXMLApplication extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        
     }
 
 

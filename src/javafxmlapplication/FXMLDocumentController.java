@@ -76,6 +76,8 @@ public class FXMLDocumentController implements Initializable {
                     mainScreen.setTitle("Main Menu");
                     mainScreen.setScene(scene);
                     mainScreen.centerOnScreen();
+                    String css = this.getClass().getResource("/style/style.css").toExternalForm();
+                    mainScreen.getScene().getStylesheets().add(css);
                     mainScreen.show();
                     /*
                     errorPassword.setText("");
