@@ -92,12 +92,13 @@ public class MyReservationsController implements Initializable {
 
     @FXML
     private void onDeleteReservation(ActionEvent event) {
-        if(books.isEmpty()){            
-            bookingStatus = "There are no reservations to delete.";
+        if(books.isEmpty() || tableList2.getSelectionModel().getSelectedIndex() == -1){            
+            bookingStatus = "Invalid selection.";
             errorB.setText(bookingStatus);
             return;
         }
-  
+        
+        deleteReservationB.requestFocus();
         datetimeB = tableList2.getSelectionModel().getSelectedItem().getBookingDate();
         Duration duracion = Duration.between(dateNow, datetimeB);
 
@@ -113,11 +114,6 @@ public class MyReservationsController implements Initializable {
                 bookingStatus = "";
                 errorB.setText(bookingStatus);
                 myBookings.remove(tableList2.getSelectionModel().getSelectedItem());
-
-                hourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-                paidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-                courtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-                dateCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMadeForDay().toString()));
 
                 tableList2.setItems(myBookings);
                 

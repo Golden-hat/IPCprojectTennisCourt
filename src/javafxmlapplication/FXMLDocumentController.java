@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
 import static javafxmlapplication.JavaFXMLApplication.*;
 import model.Club;
 import model.ClubDAOException;
+import model.Court;
 import model.Member;
 
 /**
@@ -53,7 +55,7 @@ public class FXMLDocumentController implements Initializable {
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    // TODO
+        
     }    
 
     @FXML
@@ -106,6 +108,18 @@ public class FXMLDocumentController implements Initializable {
             signup.show();
         }catch (IOException e) {
         }
+    }
+    
+        @FXML
+    private void onButtonAvailability(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(FXMLDocumentController.this.getClass().getResource("CheckAvailability.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        checkAvailability = new Stage();
+        checkAvailability.setResizable(true);
+        checkAvailability.setScene(scene);
+        checkAvailability.initModality(Modality.APPLICATION_MODAL);
+        checkAvailability.show();
     }
 
     

@@ -24,6 +24,7 @@ public class JavaFXMLApplication extends Application {
     public static Stage checkData;
     public static Stage myReservations;
     public static Member memberLoggedIn;
+    public static Stage checkAvailability;
     public static Image icon = new Image("img/Avatar_icon_green.svg.png");
     public static LocalDate date = LocalDate.now();
     

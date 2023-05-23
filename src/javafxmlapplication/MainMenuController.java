@@ -106,7 +106,6 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        
         usernameFieldBanner.setText("@"+memberLoggedIn.getNickName());
         nameSurnameFieldBanner.setText(memberLoggedIn.getName()+" "+memberLoggedIn.getSurname());
         userPictureBanner.setImage(memberLoggedIn.getImage());
@@ -146,14 +145,9 @@ public class MainMenuController implements Initializable {
         selectedCourtText = "North Court";
         try{
             Club c = Club.getInstance();
-            arrayListBooking = c.getCourtBookings("Pista 1", date);
+            arrayListBooking = c.getCourtBookings("North Court", date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
-            
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
         setDefaultSpecificCourt(0);        
@@ -165,14 +159,9 @@ public class MainMenuController implements Initializable {
         selectedCourtText = "South Court";
         try{
             Club c = Club.getInstance();
-            arrayListBooking = c.getCourtBookings("Pista 2", date);
+            arrayListBooking = c.getCourtBookings("South Court", date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
-            
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
         setDefaultSpecificCourt(1);
@@ -184,14 +173,9 @@ public class MainMenuController implements Initializable {
         selectedCourtText = "Mill Court";
         try{
             Club c = Club.getInstance();
-            arrayListBooking = c.getCourtBookings("Pista 6", date);
+            arrayListBooking = c.getCourtBookings("Mill Court", date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
-            
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
         setDefaultSpecificCourt(5);
@@ -203,17 +187,12 @@ public class MainMenuController implements Initializable {
         selectedCourtText = "West Court";
         try{
             Club c = Club.getInstance();
-            arrayListBooking = c.getCourtBookings("Pista 4", date);
+            arrayListBooking = c.getCourtBookings("West Court", date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
-            
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
-        setDefaultSpecificCourt(3);
+        setDefaultSpecificCourt(2);
     }
 
     @FXML
@@ -222,17 +201,12 @@ public class MainMenuController implements Initializable {
         selectedCourtText = "East Court";
         try{
             Club c = Club.getInstance();
-            arrayListBooking = c.getCourtBookings("Pista 3", date);
+            arrayListBooking = c.getCourtBookings("East Court", date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
-            
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
-        setDefaultSpecificCourt(2);
+        setDefaultSpecificCourt(3);
     }
 
     @FXML
@@ -241,14 +215,9 @@ public class MainMenuController implements Initializable {
         selectedCourtText = "Pond Court";
         try{
             Club c = Club.getInstance();
-            arrayListBooking = c.getCourtBookings("Pista 5", date);
+            arrayListBooking = c.getCourtBookings("Pond Court", date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
-            
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
         setDefaultSpecificCourt(4);
@@ -263,11 +232,6 @@ public class MainMenuController implements Initializable {
             arrayListBooking = c.getForDayBookings(date);
             bookingList = FXCollections.observableArrayList(arrayListBooking);
             TableList.setItems(bookingList);
-            
-            HourCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getFromTime().toString()));
-            PaidCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getPaid().toString()));
-            CourtCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt().getName()));
-            NameCol.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getMember().getNickName()));
         }catch(Exception e){}
         courtSelected.setText(selectedCourtText);
         setDefaultAll();
