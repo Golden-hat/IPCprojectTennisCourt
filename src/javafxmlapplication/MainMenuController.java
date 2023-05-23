@@ -323,6 +323,7 @@ public class MainMenuController implements Initializable {
             for(int j = 0; j < 14; j++){
                     LocalTime n = LocalTime.of(Integer.parseInt(hours[j].substring(0, hours[j].length()-3)),0);
                     FreeSlots f = new FreeSlots(hours[j], listCourts.get(i).getName(), n);
+                     System.out.println(listCourts.get(0).getName());
                     
                     if(LocalDate.now().compareTo(date) <= 0){
                         if(LocalDate.now().compareTo(date) == 0 && LocalTime.now().compareTo(n) < 0) availableHours.add(f);
