@@ -458,6 +458,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onMyReservations(ActionEvent event) throws IOException {
+        onViewAllCourts();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("myReservations.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         myReservations = new Stage();
