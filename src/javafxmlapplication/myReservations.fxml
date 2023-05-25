@@ -57,8 +57,8 @@
               <columns>
                   <TableColumn fx:id="dateCol" prefWidth="75.0" text="Date" />
                 <TableColumn fx:id="hourCol" prefWidth="75.0" text="Hour" />
-                <TableColumn fx:id="paidCol" prefWidth="75.0" text="Paid" />
                   <TableColumn fx:id="courtCol" prefWidth="75.0" text="Court" />
+                <TableColumn fx:id="paidCol" prefWidth="75.0" text="Paid" />
               </columns>
                <GridPane.margin>
                   <Insets bottom="35.0" left="20.0" right="20.0" top="40.0" />

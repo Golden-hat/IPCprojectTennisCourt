@@ -23,10 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
-import static javafxmlapplication.JavaFXMLApplication.bookingStatus;
-import static javafxmlapplication.JavaFXMLApplication.mainScreen;
-import static javafxmlapplication.JavaFXMLApplication.memberLoggedIn;
-import static javafxmlapplication.JavaFXMLApplication.myReservations;
+import static javafxmlapplication.JavaFXMLApplication.*;
 import model.Booking;
 import model.Club;
 import model.ClubDAOException;
@@ -118,10 +115,9 @@ public class MyReservationsController implements Initializable {
                 // System.out.println(k);
                 myBookings.remove(book);
                 // System.out.println(book.getMadeForDay()+", "+book.getCourt().getName()+", "+book.getBookingDate()+", "+book.toString()+", "+book.getBookingDate());
-                //System.out.println();
+                // System.out.println();
                 
                 tableList2.setItems(myBookings);
-                
                 JavaFXMLApplication c = new JavaFXMLApplication();
                 c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
             }catch(IOException | ClubDAOException e){ e.printStackTrace();}

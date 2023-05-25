@@ -55,6 +55,7 @@ public class FXMLDocumentController implements Initializable {
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /*
         try{
             Club c = Club.getInstance();
             c.setName("Tenis World");
@@ -66,6 +67,7 @@ public class FXMLDocumentController implements Initializable {
             list.get(4).setName("Pond Court");
             list.get(5).setName("Mill Court");
         }catch(Exception e){}
+        */
     }    
 
     @FXML
