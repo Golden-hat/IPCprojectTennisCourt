@@ -62,7 +62,7 @@ public class MyReservationsController implements Initializable {
      * Initializes the controller class.
      */
          public List<Booking> books= new ArrayList<>();
-         public ObservableList<Booking> myBookings= FXCollections.observableArrayList();
+         public ObservableList<Booking> myBookings = FXCollections.observableArrayList();
 
     
     @Override
@@ -91,7 +91,7 @@ public class MyReservationsController implements Initializable {
     }
 
     @FXML
-    private void onDeleteReservation(ActionEvent event) {
+    private void onDeleteReservation() {
         if(books.isEmpty() || tableList2.getSelectionModel().getSelectedIndex() == -1){            
             bookingStatus = "Invalid selection.";
             errorB.setText(bookingStatus);
@@ -108,18 +108,23 @@ public class MyReservationsController implements Initializable {
         }
         else{
             try{
-                Club club = Club.getInstance();
-                club.removeBooking(tableList2.getSelectionModel().getSelectedItem());
-                
                 bookingStatus = "";
                 errorB.setText(bookingStatus);
-                myBookings.remove(tableList2.getSelectionModel().getSelectedItem());
+                Booking book = tableList2.getSelectionModel().getSelectedItem();
+                
+                Club club = Club.getInstance();
 
+                boolean k = club.removeBooking(book);
+                // System.out.println(k);
+                myBookings.remove(book);
+                // System.out.println(book.getMadeForDay()+", "+book.getCourt().getName()+", "+book.getBookingDate()+", "+book.toString()+", "+book.getBookingDate());
+                //System.out.println();
+                
                 tableList2.setItems(myBookings);
                 
                 JavaFXMLApplication c = new JavaFXMLApplication();
                 c.changeScene("mainMenu.fxml", mainScreen, (int) mainScreen.getX(), (int) mainScreen.getY());
-            }catch(IOException | ClubDAOException e){}
+            }catch(IOException | ClubDAOException e){ e.printStackTrace();}
         }
     }
 

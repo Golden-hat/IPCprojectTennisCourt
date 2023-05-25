@@ -6,12 +6,14 @@ package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,8 +33,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static javafxmlapplication.JavaFXMLApplication.*;
+import static javafxmlapplication.MyReservationsController.dateNow;
+import static javafxmlapplication.MyReservationsController.datetimeB;
 import model.Booking;
 import model.Club;
+import model.ClubDAOException;
 import model.Court;
 
 /**
@@ -116,16 +121,15 @@ public class MainMenuController implements Initializable {
         TableList.setPlaceholder(new Label("No reservation has been made yet today!"));
         TableList1.setPlaceholder(new Label("No available bookings here..."));
         
-        TableList1.setItems(availableHours);
-        
-        HourCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getHour()));
-        CourtCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt()));
-        
         try{
             Club c = Club.getInstance();
             arrayListBooking = c.getForDayBookings(date);
         }catch(Exception e){}
         
+        TableList1.setItems(availableHours);
+        
+        HourCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getHour()));
+        CourtCol1.setCellValueFactory(personaFila->new SimpleStringProperty(personaFila.getValue().getCourt()));
         
         bookingList = FXCollections.observableArrayList(arrayListBooking);
         TableList.setItems(bookingList);
@@ -154,7 +158,7 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
-    private void onClickSouthCourt(ActionEvent event) {
+    private void onClickSouthCourt() {
         bookingList.clear();
         selectedCourtText = "South Court";
         try{
@@ -168,7 +172,7 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
-    private void onClickMillCourt(ActionEvent event) {
+    private void onClickMillCourt() {
         bookingList.clear();
         selectedCourtText = "Mill Court";
         try{
@@ -182,7 +186,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void onClickWestCourt(ActionEvent event) {
+    private void onClickWestCourt() {
         bookingList.clear();
         selectedCourtText = "West Court";
         try{
@@ -196,7 +200,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void onClickEastCourt(ActionEvent event) {
+    private void onClickEastCourt() {
         bookingList.clear();
         selectedCourtText = "East Court";
         try{
@@ -210,7 +214,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void onClickPondCourt(ActionEvent event) {
+    private void onClickPondCourt() {
         bookingList.clear();
         selectedCourtText = "Pond Court";
         try{
@@ -224,7 +228,7 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
-    private void onViewAllCourts() {
+    private void onViewAllCourts() {    
         bookingList.clear();
         selectedCourtText = "All Courts";
         try{
@@ -239,6 +243,8 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onSignOutButtonClicked() {
+        date = LocalDate.now();
+        ErrorBooking.setText("");
         icon = new Image("img/Avatar_icon_green.svg.png");
         try {
             mainScreen.close();
@@ -256,6 +262,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onCheckInfoButtonClicked() {
+        ErrorBooking.setText("");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MainMenuController.this.getClass().getResource("CheckData.fxml"));
@@ -345,10 +352,34 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
-    private void onDateSelected(ActionEvent event) {
+    private void onDateSelected() {
+        String court = courtSelected.getText();
+        
         date = dateSelector.getValue();
         DatePrompt.setText(date.toString());
-        onViewAllCourts();
+        
+        switch (court){
+            case "North Court":
+                onClickNorthCourt();
+            break;
+            case "South Court":
+                onClickSouthCourt();
+            break;
+            case "West Court":
+                onClickWestCourt();
+            break;
+            case "East Court":
+                onClickEastCourt();
+            break;
+            case "Pond Court":
+                onClickPondCourt();
+            break;
+            case "Mill Court":
+                onClickMillCourt();
+            break;
+            case "All Courts":
+                onViewAllCourts();
+        }
     }
     
     public boolean isBackToBack(Booking b){
@@ -398,7 +429,8 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void onMakeReservation(ActionEvent event) {
+    private void onMakeReservation() {
+        String court  = courtSelected.getText();
         try{
             bookingStatus = "";
             Club c = Club.getInstance();
@@ -420,8 +452,7 @@ public class MainMenuController implements Initializable {
                     if(isBackToBack || existsOnAnotherCourt){System.out.println("booking removed"); c.removeBooking(b);}
                     else{
                         bookingStatus = "Booking made successfully!";
-                        ErrorBooking.setText(bookingStatus);
-                        bookingList.add(b);                    
+                        ErrorBooking.setText(bookingStatus);                   
                     }
                 }
                 else{
@@ -429,35 +460,38 @@ public class MainMenuController implements Initializable {
                     ErrorBooking.setText(bookingStatus);
                 }
             }
-            switch (selectedCourtText){
+            else{ErrorBooking.setText("Invalid Selection");}
+            
+            switch (court){
                 case "North Court":
-                    setDefaultSpecificCourt(0);
+                    onClickNorthCourt();
                 break;
                 case "South Court":
-                    setDefaultSpecificCourt(1);
+                    onClickSouthCourt();
                 break;
                 case "West Court":
-                    setDefaultSpecificCourt(2);
+                    onClickWestCourt();
                 break;
                 case "East Court":
-                    setDefaultSpecificCourt(3);
+                    onClickEastCourt();
                 break;
                 case "Pond Court":
-                    setDefaultSpecificCourt(4);
+                    onClickPondCourt();
                 break;
                 case "Mill Court":
-                    setDefaultSpecificCourt(5);
+                    onClickMillCourt();
                 break;
                 case "All Courts":
-                    setDefaultAll();
+                    onViewAllCourts();
             }
         }
         catch(Exception e){}
     }
 
     @FXML
-    private void onMyReservations(ActionEvent event) throws IOException {
+    private void onMyReservations() throws IOException {
         onViewAllCourts();
+        
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("myReservations.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         myReservations = new Stage();
@@ -496,18 +530,67 @@ public class MainMenuController implements Initializable {
     
     @FXML
     private void onDayplus1() {
+        ErrorBooking.setText("");
+        String court = courtSelected.getText();
+        
         date = date.plusDays(1);
         dateSelector.setValue(date);
         DatePrompt.setText(date.toString());
-        onViewAllCourts();
+        
+        switch (court){
+            case "North Court":
+                onClickNorthCourt();
+            break;
+            case "South Court":
+                onClickSouthCourt();
+            break;
+            case "West Court":
+                onClickWestCourt();
+            break;
+            case "East Court":
+                onClickEastCourt();
+            break;
+            case "Pond Court":
+                onClickPondCourt();
+            break;
+            case "Mill Court":
+                onClickMillCourt();
+            break;
+            case "All Courts":
+                onViewAllCourts();
+        }
     }
 
     @FXML
     private void onDayminus1() {
+        ErrorBooking.setText("");
+        String court = courtSelected.getText();
+        
         date = date.minusDays(1);
         dateSelector.setValue(date);
         DatePrompt.setText(date.toString());
-        onViewAllCourts();
+        
+        switch (court){
+            case "North Court":
+                onClickNorthCourt();
+            break;
+            case "South Court":
+                onClickSouthCourt();
+            break;
+            case "West Court":
+                onClickWestCourt();
+            break;
+            case "East Court":
+                onClickEastCourt();
+            break;
+            case "Pond Court":
+                onClickPondCourt();
+            break;
+            case "Mill Court":
+                onClickMillCourt();
+            break;
+            case "All Courts":
+                onViewAllCourts();
+        }
     }
-    
 }

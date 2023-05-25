@@ -33,7 +33,7 @@ public class JavaFXMLApplication extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        // try{Club c = Club.getInstance(); c.setInitialData();}catch(Exception e){}
+        try{Club c = Club.getInstance(); c.setInitialData();}catch(Exception e){}
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
         FXMLLoader fxmlLoader = new FXMLLoader();
