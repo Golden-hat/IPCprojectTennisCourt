@@ -444,6 +444,7 @@ public class MainMenuController implements Initializable {
             else{ErrorBooking.setText("Invalid Selection");}
             
             refresh(court);
+            myReservations.close();
         }
         catch(Exception e){}
     }
